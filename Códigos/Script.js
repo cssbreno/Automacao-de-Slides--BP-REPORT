@@ -8,6 +8,8 @@ function updateSlidesFromSheet() {
   // Nome da planilha
   const SHEET_NAME = 'Base';
 
+  // 🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩 SLIDE 3 🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩
+
   const slideIndex = 2; // Índice do slide (baseado em 0)
 
   try {
@@ -30,9 +32,9 @@ function updateSlidesFromSheet() {
     var PN_SUSPENDED_PERCENTAGE = sheet.getRange('B6').getValue();
     var PN_INPROGRESS_PERCENTAGE = sheet.getRange('B7').getValue();
     6
-    slide.getShapes()[76].getText().setText(PN_INPROGRESS + "%"); // Em andamento
-    slide.getShapes()[79].getText().setText(PN_SUSPENDED + "%"); // Suspensos
-    slide.getShapes()[89].getText().setText(PN_TOTAL); // Total
+    slide.getShapes()[75].getText().setText(PN_INPROGRESS + "%"); // Em andamento
+    slide.getShapes()[78].getText().setText(PN_SUSPENDED + "%"); // Suspensos
+    slide.getShapes()[81].getText().setText(PN_TOTAL); // Total
     // slide.getShapes()[##].getText().setText(PN_SUSPENDED_PERCENTAGE  * 100 + "%"); // Suspensos
     // slide.getShapes()[##].getText().setText(PN_INPROGRESS_PERCENTAGE * 100 + "%"); // Suspensos
     slide.getShapes()[82].getText().setText(DATAMOUNTH); // Período
@@ -49,7 +51,7 @@ function updateSlidesFromSheet() {
 
     slide.getShapes()[34].getText().setText(PN2_INPROGRESS + "%"); // Em andamento
     slide.getShapes()[37].getText().setText(PN2_SUSPENDED + "%"); // Suspensos
-    slide.getShapes()[84].getText().setText(PN2_TOTAL); // Total
+    slide.getShapes()[101].getText().setText(PN2_TOTAL); // Total
     // slide.getShapes()[##].getText().setText(PN2_SUSPENDED_PERCENTAGE + "%"); // Suspensos
     // slide.getShapes()[##].getText().setText(PN2_INPROGRESS_PERCENTAGE + "%"); // Suspensos
 
@@ -66,7 +68,7 @@ function updateSlidesFromSheet() {
 
     slide.getShapes()[40].getText().setText(PA_INPROGRESS + "%"); // Em andamento
     slide.getShapes()[43].getText().setText(PA_SUSPENDED + "%"); // Suspensos
-    slide.getShapes()[87].getText().setText(PA_TOTAL); // Total
+    slide.getShapes()[104].getText().setText(PA_TOTAL); // Total
     // slide.getShapes()[##].getText().setText(PA_SUSPENDED_PERCENTAGE + "%"); // Suspensos
     // slide.getShapes()[##].getText().setText(PA_INPROGRESS_PERCENTAGE + "%"); // Suspensos
 
@@ -217,9 +219,53 @@ function updateSlidesFromSheet() {
 
 
 
-      const slideIndex4 = 3; // Índice do slide (baseado em 0)
 
-      
+    // 🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩 SLIDE 4 🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩🚩
+
+      const slideIndex2 = 3; // Índice do slide (baseado em 0)
+
+    // Acessar a apresentação e o slide
+    var presentation = SlidesApp.openById(SLIDES_ID);
+    var slide2 = presentation.getSlides()[slideIndex2];
+
+
+      var SATISFAÇAO_ATINGIDO_PN = sheet.getRange('B106').getValue();
+      var SATISFAÇAO_META_PN = sheet.getRange('B107').getValue();
+      var SATISFAÇAO_COR_FONTE_PN = sheet.getRange('L106').getValue();
+
+      var SATISFAÇAO_ATINGIDO_PA = sheet.getRange('B108').getValue();
+      var SATISFAÇAO_META_PA = sheet.getRange('B109').getValue();
+      var SATISFAÇAO_COR_FONTE_PA = sheet.getRange('L107').getValue();
+
+      // Cor de preenchimento da barra
+      var BARRA_SAT_NOVOS = sheet.getRange('K106').getValue();
+      var BARRA_SAT_ANTIGOS = sheet.getRange('K107').getValue();
+
+
+        // Ajustar os valores  - SATISFAÇÃO DE PROJETOS NOVOS
+        slide2.getShapes()[5].getText().setText(SATISFAÇAO_ATINGIDO_PN + "%"); // SATISFAÇÃO - ATINGIDO
+        // slide.getShapes()[6].getText().setText(SATISFAÇAO_META_PN + "%"); // SATISFAÇÃO - META
+        slide2.getShapes()[5].getText().getTextStyle().setForegroundColor(SATISFAÇAO_COR_FONTE_PN); // Satisfação: Atingido - Cor da fonte
+
+        // Ajustar os valores  - SATISFAÇÃO DE PROJETOS NOVOS
+        slide2.getShapes()[9].getText().setText(SATISFAÇAO_ATINGIDO_PA + "%"); // SATISFAÇÃO - ATINGIDO
+        // slide.getShapes()[10].getText().setText(SATISFAÇAO_META_PA + "%"); // SATISFAÇÃO - META
+        slide2.getShapes()[9].getText().getTextStyle().setForegroundColor(SATISFAÇAO_COR_FONTE_PA); // Satisfação: Meta - Cor da fonte
+
+
+        // Ajustar a largura da barra de progresso com base na porcentagem (SATISFAÇÃO - PROJETOS NOVOS)
+      var maxHeight_SIMULACAO = 204.59; // Largura máxima da barra de progresso
+      var newHeight_SIMULACAO = Math.min((SATISFAÇAO_ATINGIDO_PN / 100) * maxHeight_SIMULACAO, maxHeight_SIMULACAO)
+      slide2.getShapes()[4].setHeight(newHeight_SIMULACAO); // Ajustar a altura da barra de progresso
+      slide2.getShapes()[4].getFill().setSolidFill(BARRA_SAT_NOVOS); // Aplicar a cor sólida ao preenchimento
+
+              // Ajustar a largura da barra de progresso com base na porcentagem (SATISFAÇÃO - PROJETOS ANTIGOS)
+      var maxHeight_SAT_PA = 204.59; // Largura máxima da barra de progresso
+      var newHeight_SAT_PA = Math.min((SATISFAÇAO_ATINGIDO_PA / 100) * newHeight_SAT_PA, newHeight_SAT_PA)
+      slide2.getShapes()[8].setHeight(newHeight_SAT_PA); // Ajustar a altura da barra de progresso
+      slide2.getShapes()[8].getFill().setSolidFill(BARRA_SAT_ANTIGOS); // Aplicar a cor sólida ao preenchimento
+
+
 
 
   } catch (e) {
