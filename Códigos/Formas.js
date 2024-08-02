@@ -6,7 +6,7 @@ const SHEETS_ID = '1GZAPqryb7C3J_rF2GpyMAYkqj5itteDZn_MD6cDmB1Q';
 // Nome da planilha
 const SHEET_NAME = 'Base';
 
- const slideIndex = 2; // Índice do slide (baseado em 0)  
+ const slideIndex = 3; // Índice do slide (baseado em 0)  
   
   // Obter altura e largura de formas do slide
   function logShapeSize() {
@@ -14,10 +14,10 @@ const SHEET_NAME = 'Base';
   var presentation = SlidesApp.getActivePresentation();
   
   // Selecionar o slide que contém a forma
-  var slide = presentation.getSlides()[2];
+  var slide = presentation.getSlides()[3];
   
   // Selecionar a primeira forma no slide
-  var shape = slide.getShapes()[59];
+  var shape = slide.getShapes()[8];
   
   // Obter a largura e a altura da forma
   var width = shape.getWidth();
