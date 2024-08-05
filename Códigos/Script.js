@@ -31,12 +31,15 @@ function updateSlidesFromSheet() {
     var PN_TOTAL = sheet.getRange('B5').getValue();
     var PN_SUSPENDED_PERCENTAGE = sheet.getRange('B6').getValue();
     var PN_INPROGRESS_PERCENTAGE = sheet.getRange('B7').getValue();
-    6
-    slide.getShapes()[75].getText().setText(PN_INPROGRESS + "%"); // Em andamento
-    slide.getShapes()[78].getText().setText(PN_SUSPENDED + "%"); // Suspensos
+
+
+      // Projetos Novos 1ª fase em % - convertido
+      var PN_SUSPENDED_PERCENTAGE_Formatado = PN_SUSPENDED_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+      var PN_INPROGRESS_PERCENTAGE_Formatado = PN_INPROGRESS_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+    slide.getShapes()[75].getText().setText(PN_INPROGRESS_PERCENTAGE_Formatado + "%"); // Em andamento
+    slide.getShapes()[78].getText().setText(PN_SUSPENDED_PERCENTAGE_Formatado + "%"); // Suspensos
     slide.getShapes()[81].getText().setText(PN_TOTAL); // Total
-    // slide.getShapes()[##].getText().setText(PN_SUSPENDED_PERCENTAGE  * 100 + "%"); // Suspensos
-    // slide.getShapes()[##].getText().setText(PN_INPROGRESS_PERCENTAGE * 100 + "%"); // Suspensos
     slide.getShapes()[82].getText().setText(DATAMOUNTH); // Período
 
 
@@ -49,11 +52,13 @@ function updateSlidesFromSheet() {
     var PN2_SUSPENDED_PERCENTAGE = sheet.getRange('B18').getValue();
     var PN2_INPROGRESS_PERCENTAGE = sheet.getRange('B19').getValue();
 
-    slide.getShapes()[34].getText().setText(PN2_INPROGRESS + "%"); // Em andamento
-    slide.getShapes()[37].getText().setText(PN2_SUSPENDED + "%"); // Suspensos
+      // Projetos Novos 2ª fase em % - convertido
+      var PN2_SUSPENDED_PERCENTAGE_Formatado = PN2_SUSPENDED_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+      var PN2_INPROGRESS_PERCENTAGE_Formatado = PN2_INPROGRESS_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+    slide.getShapes()[34].getText().setText(PN2_INPROGRESS_PERCENTAGE_Formatado + "%"); // Em andamento
+    slide.getShapes()[37].getText().setText(PN2_SUSPENDED_PERCENTAGE_Formatado + "%"); // Suspensos
     slide.getShapes()[101].getText().setText(PN2_TOTAL); // Total
-    // slide.getShapes()[##].getText().setText(PN2_SUSPENDED_PERCENTAGE + "%"); // Suspensos
-    // slide.getShapes()[##].getText().setText(PN2_INPROGRESS_PERCENTAGE + "%"); // Suspensos
 
 
     // ##################################### ⭐ PROJETOS ANTIGOS - 1ª FASE e 2ª FASE ⭐ #######################################
@@ -66,8 +71,12 @@ function updateSlidesFromSheet() {
     var PA_INPROGRESS_PERCENTAGE = sheet.getRange('B31').getValue();
 
 
-    slide.getShapes()[40].getText().setText(PA_INPROGRESS + "%"); // Em andamento
-    slide.getShapes()[43].getText().setText(PA_SUSPENDED + "%"); // Suspensos
+      // Projetos Antigos em % - convertido
+      var PA_SUSPENDED_PERCENTAGE_Formatado = PA_SUSPENDED_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+      var PA_INPROGRESS_PERCENTAGE_Formatado = PA_INPROGRESS_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+    slide.getShapes()[40].getText().setText(PA_INPROGRESS_PERCENTAGE_Formatado + "%"); // Em andamento
+    slide.getShapes()[43].getText().setText(PA_SUSPENDED_PERCENTAGE_Formatado + "%"); // Suspensos
     slide.getShapes()[104].getText().setText(PA_TOTAL); // Total
     // slide.getShapes()[##].getText().setText(PA_SUSPENDED_PERCENTAGE + "%"); // Suspensos
     // slide.getShapes()[##].getText().setText(PA_INPROGRESS_PERCENTAGE + "%"); // Suspensos
@@ -360,15 +369,51 @@ function updateSlidesFromSheet() {
     slide4.getShapes()[12].getText().setText(DATAMOUNTH3); // Período
 
 
+    // Considerações finais
+      var OBS_CONSID = sheet.getRange('B193').getValue();
+      slide4.getShapes()[10].getText().setText(OBS_CONSID); // Box de dados a preencher - Considerações
+
+
+    // Pontos de atenção
+      var PONTOS_ATENC = sheet.getRange('B202').getValue();
+      slide4.getShapes()[11].getText().setText(PONTOS_ATENC); // Box de dados a preencher - Pontos de atenção
+
+
+    // Plano de ação
+      var UNID_1 = sheet.getRange('B211').getValue();
+      var UNID_2 = sheet.getRange('B213').getValue();
+      var UNID_3 = sheet.getRange('B215').getValue();
+      var UNID_4 = sheet.getRange('B217').getValue();
+      var UNID_5 = sheet.getRange('B219').getValue();
+
+      slide4.getShapes()[13].getText().setText(UNID_1); // Box de dados a preencher - Plano de ação
+      slide4.getShapes()[14].getText().setText(UNID_2); // Box de dados a preencher - Plano de ação
+      slide4.getShapes()[15].getText().setText(UNID_3); // Box de dados a preencher - Plano de ação
+      slide4.getShapes()[16].getText().setText(UNID_4); // Box de dados a preencher - Plano de ação
+      slide4.getShapes()[17].getText().setText(UNID_5); // Box de dados a preencher - Plano de ação
+
+
+      var PLAN_AC_UNID_1 = sheet.getRange('B212').getValue();
+      var PLAN_AC_UNID_2 = sheet.getRange('B214').getValue();
+      var PLAN_AC_UNID_3 = sheet.getRange('B216').getValue();
+      var PLAN_AC_UNID_4 = sheet.getRange('B218').getValue();
+      var PLAN_AC_UNID_5 = sheet.getRange('B220').getValue();
+
+      slide4.getShapes()[8].getText().setText(PLAN_AC_UNID_1); // Box de dados a preencher - Plano de ação
+      slide4.getShapes()[3].getText().setText(PLAN_AC_UNID_2); // Box de dados a preencher - Plano de ação
+      slide4.getShapes()[18].getText().setText(PLAN_AC_UNID_3); // Box de dados a preencher - Plano de ação
+      slide4.getShapes()[4].getText().setText(PLAN_AC_UNID_4); // Box de dados a preencher - Plano de ação
+      slide4.getShapes()[5].getText().setText(PLAN_AC_UNID_5); // Box de dados a preencher - Plano de ação
+
+
   } catch (e) {
     Logger.log(e.toString());
   }
 }
 
-// Botão "Atualizar" no Slide
-function onOpen() {
-  var ui = SlidesApp.getUi();
-  ui.createMenu('Atualizar')
-    .addItem('Atualizar base', 'updateSlidesFromSheet')
-    .addToUi();
+function onOpen2() {
+  var ui = SpreadsheetApp.getUi();
+  ui.createMenu('Meu Menu')
+      .addItem('Atualizar Slides', 'updateSlidesFromSheet')
+      .addToUi();
 }

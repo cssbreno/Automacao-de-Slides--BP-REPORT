@@ -6,7 +6,7 @@ const SHEETS_ID = '1GZAPqryb7C3J_rF2GpyMAYkqj5itteDZn_MD6cDmB1Q';
 // Nome da planilha
 const SHEET_NAME = 'Base';
 
- const slideIndex = 3; // Índice do slide (baseado em 0)  
+ const slideIndex = 2; // Índice do slide (baseado em 0)  
   
   // Obter altura e largura de formas do slide
   function logShapeSize() {
