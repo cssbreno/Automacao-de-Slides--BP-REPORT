@@ -1,12 +1,12 @@
 // Atualizar informações da planilha para o slide
-function updateSlidesFromSheet() {
+function updateBP_ALAGOAS() {
 
   // IDs da apresentação e da planilha
   const SLIDES_ID = '1whKu0ncTiW3qFmPUXusqTL7zu_ai_uy4kz09oyoaq34';
   const SHEETS_ID = '1GZAPqryb7C3J_rF2GpyMAYkqj5itteDZn_MD6cDmB1Q';
 
   // Nome da planilha
-  const SHEET_NAME = 'Base';
+  const SHEET_NAME = 'BP ALAGOAS';
 
   // 💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙 SLIDE 3 💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙
 
@@ -22,10 +22,10 @@ function updateSlidesFromSheet() {
     var presentation = SlidesApp.openById(SLIDES_ID);
     var slide = presentation.getSlides()[slideIndex];
 
-    // ############################## ⭐ PROJETOS NOVOS - 1ª FASE ⭐ ##############################################
+    // ⭐ PROJETOS NOVOS - 1ª FASE ⭐ 
 
         // Dados da Planilha - Colocar a célula da planilha
-    var DATAMOUNTH = sheet.getRange('C2').getValue();
+    var DATAMOUNTH = sheet.getRange('C38').getValue();
     var PN_INPROGRESS = sheet.getRange('B3').getValue();
     var PN_SUSPENDED = sheet.getRange('B4').getValue();
     var PN_TOTAL = sheet.getRange('B5').getValue();
@@ -43,7 +43,7 @@ function updateSlidesFromSheet() {
     slide.getShapes()[81].getText().setText(DATAMOUNTH); // Período
 
 
-    // ##################################### ⭐ PROJETOS NOVOS - 2ª FASE ⭐ #######################################
+    // ⭐ PROJETOS NOVOS - 2ª FASE ⭐ 
 
   // Dados da Planilha - Colocar a célula da planilha
     var PN2_INPROGRESS = sheet.getRange('B15').getValue();
@@ -61,7 +61,7 @@ function updateSlidesFromSheet() {
     slide.getShapes()[100].getText().setText(PN2_TOTAL); // Total
 
 
-    // ##################################### ⭐ PROJETOS ANTIGOS - 1ª FASE e 2ª FASE ⭐ #######################################
+    // ⭐ PROJETOS ANTIGOS - 1ª FASE e 2ª FASE ⭐
 
    // Dados da Planilha - Colocar a célula da planilha
     var PA_INPROGRESS = sheet.getRange('B27').getValue();
@@ -83,7 +83,7 @@ function updateSlidesFromSheet() {
 
 
 
-    // ##################################### ⭐ PROJETOS CONCLUÍDOS ⭐ #######################################
+    // ⭐ PROJETOS CONCLUÍDOS 
 
       var PC_FASE1 = sheet.getRange('B39').getValue();
       var PC_FASE2 = sheet.getRange('B40').getValue();
@@ -95,7 +95,7 @@ function updateSlidesFromSheet() {
     
 
 
-    // ##################################### ⭐ PEP ⭐ #######################################
+    // ⭐ PEP ⭐ 
 
       var PEP_ATINGIDO = sheet.getRange('B49').getValue();
       var PEP_META = sheet.getRange('B50').getValue();
@@ -111,7 +111,7 @@ function updateSlidesFromSheet() {
 
 
 
-    // ##################################### ⭐ CONFORMIDADE DE PROJETOS ⭐ #######################################
+    // ⭐ CONFORMIDADE DE PROJETOS ⭐ 
 
 
       var CONFORMIDADE_ATINGIDO = sheet.getRange('B58').getValue();
@@ -195,7 +195,7 @@ function updateSlidesFromSheet() {
       slide.getShapes()[68].getFill().setSolidFill(BARRA_ENCERRAMENTO); // Aplicar a cor sólida ao preenchimento
       
 
-    // ##################################### ⭐ PROJETOS CONCLUÍDOS - CLUSTER ⭐ #######################################
+    // ⭐ PROJETOS CONCLUÍDOS - CLUSTER ⭐
 
 
       var CLUSTER_500_A = sheet.getRange('B74').getValue();
@@ -223,7 +223,7 @@ function updateSlidesFromSheet() {
       slide.getShapes()[19].getText().setText(CLUSTER_TOTAL_N); // Cluster TOTAL (NOVOS)
 
 
-    // ##################################### ⭐ DMP ⭐ #######################################
+    // ⭐ DMP ⭐
 
       var DMP_ATINGIDO = sheet.getRange('B91').getValue();
       var DMP_META = sheet.getRange('B90').getValue();
@@ -255,7 +255,7 @@ function updateSlidesFromSheet() {
     var presentation = SlidesApp.openById(SLIDES_ID);
     var slide2 = presentation.getSlides()[slideIndex2];
 
-        var DATAMOUNTH2 = sheet.getRange('C2').getValue();
+        var DATAMOUNTH2 = sheet.getRange('C38').getValue();
       slide2.getShapes()[24].getText().setText(DATAMOUNTH2); // Período
 
 
@@ -321,7 +321,7 @@ function updateSlidesFromSheet() {
     var presentation = SlidesApp.openById(SLIDES_ID);
     var slide3 = presentation.getSlides()[slideIndex3];
 
-    var DATAMOUNTH2 = sheet.getRange('C2').getValue();
+    var DATAMOUNTH2 = sheet.getRange('C38').getValue();
     slide3.getShapes()[37].getText().setText(DATAMOUNTH2); // Período
 
     // Plano de ação - caixas de texto
@@ -432,6 +432,6 @@ function updateSlidesFromSheet() {
 function onOpen2() {
   var ui = SpreadsheetApp.getUi();
   ui.createMenu('Meu Menu')
-      .addItem('Atualizar Slides', 'updateSlidesFromSheet')
+      .addItem('Atualizar Slides', 'updateBP_ALAGOAS')
       .addToUi();
 }
