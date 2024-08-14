@@ -1,14 +1,10 @@
-  // IDs da apresentação e da planilha
-  const SLIDES_ID = '1whKu0ncTiW3qFmPUXusqTL7zu_ai_uy4kz09oyoaq34';
-  const SHEETS_ID = '1GZAPqryb7C3J_rF2GpyMAYkqj5itteDZn_MD6cDmB1Q';
-
   // Nome da planilha
-  const SHEET_NAME = 'BP ALAGOAS';
-  const slideIndex = 2; // Índice do slide (baseado em 0)
+  const SHEET_BH_PAMP = 'BP BH PAMPULHA';
+  const slideIndex18 = 17; // Índice do slide (baseado em 0)
 
 // Gráfico 1
 function createCustomDonutChart() {
-  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_NAME);
+  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BH_PAMP);
   const range = sheet.getRange('B6:B7'); // Ajuste o intervalo conforme seus dados
 
   const chart = sheet.newChart()
@@ -35,7 +31,7 @@ function createCustomDonutChart() {
 
 // Gráfico 2
 function createCustomDonutChart2() {
-  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_NAME);
+  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BH_PAMP);
   const range = sheet.getRange('B18:B19'); // Ajuste o intervalo conforme seus dados
 
   const chart = sheet.newChart()
@@ -62,7 +58,7 @@ function createCustomDonutChart2() {
 
 // Gráfico 3
 function createCustomDonutChart3() {
-  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_NAME);
+  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BH_PAMP);
   const range = sheet.getRange('B30:B31'); // Ajuste o intervalo conforme seus dados
 
   const chart = sheet.newChart()
@@ -91,7 +87,7 @@ function createCustomDonutChart3() {
 function insertChartIntoSlide(chart) {
   if (chart) { 
     const slides = SlidesApp.openById(SLIDES_ID);
-    const slide = slides.getSlides()[slideIndex];
+    const slide = slides.getSlides()[slideIndex18];
     const blob = chart.getAs('image/png'); 
     slide.insertImage(blob);
   }
@@ -100,7 +96,7 @@ function insertChartIntoSlide(chart) {
 // Função para atualizar os três últimos gráficos
 function updateLastThreeCharts() {
   const slides = SlidesApp.openById(SLIDES_ID);
-  const slide = slides.getSlides()[slideIndex];
+  const slide = slides.getSlides()[slideIndex18];
   const images = slide.getImages();
 
   if (images.length >= 3) {
@@ -108,7 +104,7 @@ function updateLastThreeCharts() {
     const image2 = images[images.length - 2];
     const image3 = images[images.length - 1];
     
-    const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_NAME);
+    const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BH_PAMP);
     const charts = sheet.getCharts();
 
     if (charts.length >= 3) {
