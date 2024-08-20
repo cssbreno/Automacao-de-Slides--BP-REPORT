@@ -1,10 +1,10 @@
   // Nome da planilha
-  const SHEET_BP_RJ = 'BP RJ';
-  const slideIndex85 = 84; // Índice do slide (baseado em 0)
+  const SHEET_BP_SPMET = 'BP SP METROPOLITANA';
+  const slideIndex91 = 90; // Índice do slide (baseado em 0)
 
 // Gráfico 1
-function createChartRJ1() {
-  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_RJ);
+function createChartSPMET1() {
+  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_SPMET);
   const range = sheet.getRange('B6:B7'); // Ajuste o intervalo conforme seus dados
 
   const chart = sheet.newChart()
@@ -26,12 +26,12 @@ function createChartRJ1() {
     .build();
 
   sheet.insertChart(chart);
-  insertChartRJ(chart);
+  insertChartSPMET(chart);
 }
 
 // Gráfico 2
-function createChartRJ2() {
-  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_RJ);
+function createChartSPMET2() {
+  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_SPMET);
   const range = sheet.getRange('B18:B19'); // Ajuste o intervalo conforme seus dados
 
   const chart = sheet.newChart()
@@ -53,12 +53,12 @@ function createChartRJ2() {
     .build();
 
   sheet.insertChart(chart);
-  insertChartRJ(chart);
+  insertChartSPMET(chart);
 }
 
 // Gráfico 3
-function createChartRJ3() {
-  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_RJ);
+function createChartSPMET3() {
+  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_SPMET);
   const range = sheet.getRange('B30:B31'); // Ajuste o intervalo conforme seus dados
 
   const chart = sheet.newChart()
@@ -80,14 +80,14 @@ function createChartRJ3() {
     .build();
 
   sheet.insertChart(chart);
-  insertChartRJ(chart);
+  insertChartSPMET(chart);
 }
 
 // Função para inserir gráficos no slide
-function insertChartRJ(chart) {
+function insertChartSPMET(chart) {
   if (chart) { 
     const slides = SlidesApp.openById(SLIDES_ID);
-    const slide = slides.getSlides()[slideIndex85];
+    const slide = slides.getSlides()[slideIndex91];
     const blob = chart.getAs('image/png'); 
     slide.insertImage(blob);
   }
@@ -96,7 +96,7 @@ function insertChartRJ(chart) {
 // Função para atualizar os três últimos gráficos
 function updateCharts() {
   const slides = SlidesApp.openById(SLIDES_ID);
-  const slide = slides.getSlides()[slideIndex85];
+  const slide = slides.getSlides()[slideIndex91];
   const images = slide.getImages();
 
   if (images.length >= 3) {
@@ -104,7 +104,7 @@ function updateCharts() {
     const image2 = images[images.length - 2];
     const image3 = images[images.length - 1];
     
-    const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_RJ);
+    const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_SPMET);
     const charts = sheet.getCharts();
 
     if (charts.length >= 3) {
