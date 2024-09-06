@@ -1,6 +1,6 @@
   // Nome da planilha
   const SHEET_BP_CE = 'BP CEARÁ';
-  const slideIndex75 = 74; // Índice do slide (baseado em 0)
+  const slideIndex19 = 18; // Índice do slide (baseado em 0)
 
 // Gráfico 1
 function createChartCE1() {
@@ -87,7 +87,7 @@ function createChartCE3() {
 function insertChartCE(chart) {
   if (chart) { 
     const slides = SlidesApp.openById(SLIDES_ID);
-    const slide = slides.getSlides()[slideIndex75];
+    const slide = slides.getSlides()[slideIndex19];
     const blob = chart.getAs('image/png'); 
     slide.insertImage(blob);
   }
@@ -96,7 +96,7 @@ function insertChartCE(chart) {
 // Função para atualizar os três últimos gráficos
 function updateChartsCE() {
   const slides = SlidesApp.openById(SLIDES_ID);
-  const slide = slides.getSlides()[slideIndex75];
+  const slide = slides.getSlides()[slideIndex19];
   const images = slide.getImages();
 
   if (images.length >= 3) {

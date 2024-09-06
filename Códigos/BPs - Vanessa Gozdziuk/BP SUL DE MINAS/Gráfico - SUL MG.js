@@ -1,9 +1,9 @@
   // Nome da planilha
   const SHEET_BP_SULMG = 'BP SUL DE MINAS';
-  const slideIndex23 = 22; // Índice do slide (baseado em 0)
+  const slideIndex29 = 28; // Índice do slide (baseado em 0)
 
 // Gráfico 1
-function createCustomDonutChart() {
+function createhartSMG() {
   const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_SULMG);
   const range = sheet.getRange('B6:B7'); // Ajuste o intervalo conforme seus dados
 
@@ -26,11 +26,11 @@ function createCustomDonutChart() {
     .build();
 
   sheet.insertChart(chart);
-  insertChartIntoSlide(chart);
+  insertChartIntoSlideSMG(chart);
 }
 
 // Gráfico 2
-function createCustomDonutChart2() {
+function createChartSMG2() {
   const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_SULMG);
   const range = sheet.getRange('B18:B19'); // Ajuste o intervalo conforme seus dados
 
@@ -53,11 +53,11 @@ function createCustomDonutChart2() {
     .build();
 
   sheet.insertChart(chart);
-  insertChartIntoSlide(chart);
+  insertChartIntoSlideSMG(chart);
 }
 
 // Gráfico 3
-function createCustomDonutChart3() {
+function createChartSMG3() {
   const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_SULMG);
   const range = sheet.getRange('B30:B31'); // Ajuste o intervalo conforme seus dados
 
@@ -80,23 +80,23 @@ function createCustomDonutChart3() {
     .build();
 
   sheet.insertChart(chart);
-  insertChartIntoSlide(chart);
+  insertChartIntoSlideSMG(chart);
 }
 
 // Função para inserir gráficos no slide
-function insertChartIntoSlide(chart) {
+function insertChartIntoSlideSMG(chart) {
   if (chart) { 
     const slides = SlidesApp.openById(SLIDES_ID);
-    const slide = slides.getSlides()[slideIndex23];
+    const slide = slides.getSlides()[slideIndex29];
     const blob = chart.getAs('image/png'); 
     slide.insertImage(blob);
   }
 }
 
 // Função para atualizar os três últimos gráficos
-function updateLastThreeCharts() {
+function updateChartsSMG() {
   const slides = SlidesApp.openById(SLIDES_ID);
-  const slide = slides.getSlides()[slideIndex23];
+  const slide = slides.getSlides()[slideIndex29];
   const images = slide.getImages();
 
   if (images.length >= 3) {

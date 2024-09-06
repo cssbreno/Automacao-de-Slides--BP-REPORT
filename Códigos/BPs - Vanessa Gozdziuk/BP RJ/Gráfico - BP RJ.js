@@ -1,6 +1,6 @@
   // Nome da planilha
   const SHEET_BP_RJ = 'BP RJ';
-  const slideIndex85 = 84; // Índice do slide (baseado em 0)
+  const slideIndex34 = 33; // Índice do slide (baseado em 0)
 
 // Gráfico 1
 function createChartRJ1() {
@@ -87,16 +87,16 @@ function createChartRJ3() {
 function insertChartRJ(chart) {
   if (chart) { 
     const slides = SlidesApp.openById(SLIDES_ID);
-    const slide = slides.getSlides()[slideIndex85];
+    const slide = slides.getSlides()[slideIndex34];
     const blob = chart.getAs('image/png'); 
     slide.insertImage(blob);
   }
 }
 
 // Função para atualizar os três últimos gráficos
-function updateCharts() {
+function updateChartsRJ() {
   const slides = SlidesApp.openById(SLIDES_ID);
-  const slide = slides.getSlides()[slideIndex85];
+  const slide = slides.getSlides()[slideIndex34];
   const images = slide.getImages();
 
   if (images.length >= 3) {
