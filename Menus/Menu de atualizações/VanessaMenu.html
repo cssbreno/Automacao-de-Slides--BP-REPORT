@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f8f9fa; /* Cor de fundo menos branca */
+        margin: 0;
+        padding: 20px;
+      }
+      h2 {
+        color: #66246B;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      li {
+        margin-bottom: 10px;
+      }
+      a {
+        display: block;
+        text-decoration: none;
+        color: #66CC66; /* Cor do texto inicial */
+        padding: 10px;
+        border-radius: 4px;
+        background-color: #66246B; /* Cor de fundo inicial */
+        text-align: center;
+        font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s; /* Transição suave */
+      }
+      a:hover {
+        background-color: #66CC66; /* Cor de fundo ao passar o mouse */
+        color: #66246B; /* Cor do texto ao passar o mouse */
+      }
+      .disabled {
+        background-color: #999; /* Cor de fundo dos botões desabilitados */
+        color: #666; /* Cor do texto dos botões desabilitados */
+        cursor: not-allowed;
+        pointer-events: none; /* Desabilita cliques */
+      }
+      .active {
+        background-color: #4e1a4e; /* Destaque para o botão ativo */
+        color: #66CC66; /* Cor do texto do botão ativo */
+      }
+    </style>
+  </head>
+  <body>
+    <h2>BPS - Vanessa</h2>
+    <ul>
+      <li><a id="salvador" onclick="runUpdateFunction('updateBP_SALVADOR', this)">BP SALVADOR</a></li>
+      <li><a id="sudeste" onclick="runUpdateFunction('updateBP_SUDESTE', this)">DC SUDESTE</a></li>
+      <li><a id="ceara" onclick="runUpdateFunction('updateBP_CEARA', this)">BP CEARÁ</a></li>
+      <li><a id="bhpampulha" onclick="runUpdateFunction('updateBP_BH_PAMPULHA', this)">BP BH PAMPULHA</a></li>
+      <li><a id="suldeminas" onclick="runUpdateFunction('updateBP_SUL_DE_MINAS', this)">BP SUL DE MINAS</a></li>
+      <li><a id="rj" onclick="runUpdateFunction('updateBP_RJ', this)">BP RJ</a></li>
+    </ul>
+
+    <script>
+      function runUpdateFunction(functionName, clickedElement) {
+        var buttons = document.querySelectorAll('a');
+
+        // Desabilitar todos os botões e aplicar a classe 'disabled'
+        buttons.forEach(function(button) {
+          button.classList.add('disabled');
+        });
+
+        // Destacar o botão clicado
+        clickedElement.classList.remove('disabled');
+        clickedElement.classList.add('active');
+
+        google.script.run
+          .withSuccessHandler(function(response) {
+            console.log(functionName + ' executada com sucesso.');
+            // Reabilitar todos os botões após a execução
+            buttons.forEach(function(button) {
+              button.classList.remove('disabled');
+              button.classList.remove('active');
+            });
+          })
+          .withFailureHandler(function(error) {
+            console.log('Erro ao executar ' + functionName + ': ' + error);
+            // Reabilitar todos os botões em caso de erro também
+            buttons.forEach(function(button) {
+              button.classList.remove('disabled');
+              button.classList.remove('active');
+            });
+          })
+          [functionName](); // Chama a função do lado do servidor com base no nome passado
+      }
+    </script>
+  </body>
+</html>
