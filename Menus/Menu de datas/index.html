@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <base target="_top" />
+    <base target="_top">
     <style>
       body {
         font-family: Arial, sans-serif;
@@ -57,7 +57,7 @@
       }
 
       button {
-        background-color: #66246b;
+        background-color: #66246B;
         color: #fff;
         border: none;
         margin-bottom: 5px;
@@ -86,7 +86,7 @@
       #loadingIndicator {
         display: none;
         margin-top: 10px;
-        color: #66246b;
+        color: #66246B;
         font-size: 1.1em;
         white-space: nowrap;
       }
@@ -141,8 +141,7 @@
       }
 
       @keyframes fadeIn {
-        0%,
-        100% {
+        0%, 100% {
           opacity: 0;
         }
         50% {
@@ -156,71 +155,48 @@
       <h1>Selecione a Data</h1>
       <form id="dateForm">
         <label for="dateInput">Digite o mês e o ano no formato MM/AA:</label>
-        <input
-          type="text"
-          id="dateInput"
-          name="dateInput"
-          required
-          placeholder="MM/AA"
-          maxlength="7"
-          oninput="applyMask(this)"
-        />
-        <div id="error-message" class="error-message">
-          Formato de mês/ano inválido. Verifique.
-        </div>
-        <button type="button" id="submitButton" onclick="submitDate()">
-          Atualizar
-        </button>
+        <input type="text" id="dateInput" name="dateInput" required placeholder="MM/AA" maxlength="7" oninput="applyMask(this)">
+        <div id="error-message" class="error-message">Formato de mês/ano inválido. Verifique.</div>
+        <button type="button" id="submitButton" onclick="submitDate()">Atualizar</button>
       </form>
       <div id="loadingIndicator">
         <div class="loading-text">
-          <br />
-          <span>P</span><span>r</span><span>o</span><span>c</span><span>e</span
-          ><span>s</span><span>s</span><span>a</span><span>n</span><span>d</span
-          ><span>o</span>
+          <br>
+          <span>P</span><span>r</span><span>o</span><span>c</span><span>e</span><span>s</span><span>s</span><span>a</span><span>n</span><span>d</span><span>o</span>
         </div>
       </div>
     </div>
-
+    
     <script>
       function applyMask(input) {
-        let value = input.value.replace(/\D/g, "");
+        let value = input.value.replace(/\D/g, '');
 
         if (value.length > 2) {
-          value = value.slice(0, 2) + "/" + value.slice(2, 4);
+          value = value.slice(0, 2) + '/' + value.slice(2, 4);
         }
 
         input.value = value;
       }
 
       function submitDate() {
-        const dateInput = document.getElementById("dateInput").value;
-        const errorMessage = document.getElementById("error-message");
-        const submitButton = document.getElementById("submitButton");
-        const loadingIndicator = document.getElementById("loadingIndicator");
-
+        const dateInput = document.getElementById('dateInput').value;
+        const errorMessage = document.getElementById('error-message');
+        const submitButton = document.getElementById('submitButton');
+        const loadingIndicator = document.getElementById('loadingIndicator');
+        
         const currentYear = new Date().getFullYear() % 100; // Pega os dois últimos dígitos do ano atual
-        const [month, year] = dateInput.split("/");
-
-        if (
-          !month ||
-          !year ||
-          month < "01" ||
-          month > "12" ||
-          year < "11" ||
-          year > currentYear
-        ) {
-          errorMessage.style.display = "block"; // Exibe a mensagem de erro
+        const [month, year] = dateInput.split('/');
+        
+        if (!month || !year || month < "01" || month > "12" || year < "11" || year > currentYear) {
+          errorMessage.style.display = 'block'; // Exibe a mensagem de erro
         } else {
-          errorMessage.style.display = "none"; // Oculta a mensagem de erro
+          errorMessage.style.display = 'none'; // Oculta a mensagem de erro
           submitButton.disabled = true;
-          loadingIndicator.style.display = "inline";
+          loadingIndicator.style.display = 'inline';
 
-          google.script.run
-            .withSuccessHandler(function () {
-              google.script.host.close();
-            })
-            .updateSlideWithDate(dateInput);
+          google.script.run.withSuccessHandler(function() {
+            google.script.host.close();
+          }).updateSlideWithDate(dateInput);
         }
       }
     </script>
