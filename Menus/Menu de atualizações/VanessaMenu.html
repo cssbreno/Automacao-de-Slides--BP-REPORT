@@ -5,12 +5,12 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #f8f9fa; /* Cor de fundo menos branca */
+        background-color: #F5F5F5; /* Cinza Claro */
         margin: 0;
         padding: 20px;
       }
       h2 {
-        color: #66246B;
+        color: #253C59; /* Azul Escuro */
       }
       ul {
         list-style-type: none;
@@ -22,73 +22,251 @@
       a {
         display: block;
         text-decoration: none;
-        color: #66CC66; /* Cor do texto inicial */
+        color: #D9B70D; /* Amarelo Ouro */
         padding: 10px;
         border-radius: 4px;
-        background-color: #66246B; /* Cor de fundo inicial */
+        background-color: #253C59; /* Azul Escuro */
         text-align: center;
         font-weight: bold;
         cursor: pointer;
-        transition: background-color 0.3s, color 0.3s; /* Transição suave */
+        transition: background-color 0.3s, color 0.3s, opacity 0.3s;
       }
       a:hover {
-        background-color: #66CC66; /* Cor de fundo ao passar o mouse */
-        color: #66246B; /* Cor do texto ao passar o mouse */
+        background-color: #D9B70D; /* Amarelo Ouro */
+        color: #253C59; /* Azul Escuro */
       }
-      .disabled {
-        background-color: #999; /* Cor de fundo dos botões desabilitados */
-        color: #666; /* Cor do texto dos botões desabilitados */
-        cursor: not-allowed;
-        pointer-events: none; /* Desabilita cliques */
+      .inactive {
+        opacity: 0.3;
+        pointer-events: none;
+        background-color: #E0E0E0; /* Cinza Claro */
+        color: #B0B0B0; /* Cinza Médio */
       }
       .active {
-        background-color: #4e1a4e; /* Destaque para o botão ativo */
-        color: #66CC66; /* Cor do texto do botão ativo */
+        opacity: 0.7;
+        pointer-events: none;
+        background-color: #B0B0B0; /* Cinza Médio */
+        color: #E0E0E0; /* Cinza Claro */
+      }
+      #loadingIndicator {
+        display: none;
+        margin-top: 20px;
+        color: #253C59; /* Azul Escuro */
+        font-size: 1.1em;
+        text-align: center;
+        text-shadow: 1px 1px 2px #B0B0B0; /* Sombra de texto leve */
+      }
+      .loading-text span {
+        opacity: 0;
+        animation: fadeIn 1.5s infinite;
+      }
+      .loading-text span:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .loading-text span:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .loading-text span:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .loading-text span:nth-child(4) {
+        animation-delay: 0.3s;
+      }
+      .loading-text span:nth-child(5) {
+        animation-delay: 0.4s;
+      }
+      .loading-text span:nth-child(6) {
+        animation-delay: 0.5s;
+      }
+      .loading-text span:nth-child(7) {
+        animation-delay: 0.6s;
+      }
+      .loading-text span:nth-child(8) {
+        animation-delay: 0.7s;
+      }
+      .loading-text span:nth-child(9) {
+        animation-delay: 0.8s;
+      }
+      .loading-text span:nth-child(10) {
+        animation-delay: 0.9s;
+      }
+      .loading-text span:nth-child(11) {
+        animation-delay: 1s;
+      }
+      @keyframes fadeIn {
+        0%, 100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      .error-message {
+        color: red;
+        font-size: 1.1em;
+        text-align: center;
+        margin-top: 20px;
+      }
+      .success-message {
+        color: green;
+        font-size: 1.1em;
+        text-align: center;
+        margin-top: 20px;
       }
     </style>
   </head>
   <body>
     <h2>BPS - Vanessa</h2>
     <ul>
-      <li><a id="salvador" onclick="runUpdateFunction('updateBP_SALVADOR', this)">BP SALVADOR</a></li>
-      <li><a id="sudeste" onclick="runUpdateFunction('updateBP_SUDESTE', this)">DC SUDESTE</a></li>
-      <li><a id="ceara" onclick="runUpdateFunction('updateBP_CEARA', this)">BP CEARÁ</a></li>
-      <li><a id="bhpampulha" onclick="runUpdateFunction('updateBP_BH_PAMPULHA', this)">BP BH PAMPULHA</a></li>
-      <li><a id="suldeminas" onclick="runUpdateFunction('updateBP_SUL_DE_MINAS', this)">BP SUL DE MINAS</a></li>
-      <li><a id="rj" onclick="runUpdateFunction('updateBP_RJ', this)">BP RJ</a></li>
+      <!-- IDs dos botões correspondendo aos nomes das funções -->
+      <li><a id="updateBP_SALVADOR" onclick="runUpdateFunction('updateBP_SALVADOR', this)">BP SALVADOR</a></li>
+      <li><a id="updateDC_SUDESTE" onclick="runUpdateFunction('updateDC_SUDESTE', this)">DC SUDESTE</a></li>
+      <li><a id="updateBP_CE" onclick="runUpdateFunction('updateBP_CE', this)">BP CEARÁ</a></li>
+      <li><a id="updateBP_BHPAMPULHA" onclick="runUpdateFunction('updateBP_BHPAMPULHA', this)">BP BH PAMPULHA</a></li>
+      <li><a id="updateBP_SULMG" onclick="runUpdateFunction('updateBP_SULMG', this)">BP SUL DE MINAS</a></li>
+      <li><a id="updateBP_RJ" onclick="runUpdateFunction('updateBP_RJ', this)">BP RJ</a></li>
     </ul>
+
+    <!-- Indicador de Processamento -->
+    <div id="loadingIndicator">
+      <div class="loading-text">
+        <span>P</span><span>r</span><span>o</span><span>c</span><span>e</span><span>s</span><span>s</span><span>a</span><span>n</span><span>d</span><span>o</span>
+      </div>
+    </div>
+
+    <!-- Mensagem de Erro ou Sucesso -->
+    <div id="message" class="error-message" style="display:none;"></div>
 
     <script>
       function runUpdateFunction(functionName, clickedElement) {
         var buttons = document.querySelectorAll('a');
+        var loadingIndicator = document.getElementById('loadingIndicator');
+        var messageDiv = document.getElementById('message');
 
-        // Desabilitar todos os botões e aplicar a classe 'disabled'
         buttons.forEach(function(button) {
-          button.classList.add('disabled');
+          if (button !== clickedElement) {
+            button.classList.add('inactive');
+            button.classList.remove('active');
+          } else {
+            button.classList.remove('inactive');
+            button.classList.add('active');
+          }
         });
 
-        // Destacar o botão clicado
-        clickedElement.classList.remove('disabled');
-        clickedElement.classList.add('active');
+        clickedElement.removeAttribute('onclick');
+        loadingIndicator.style.display = 'block';  // Mostra o indicador de processamento
+        messageDiv.style.display = 'none';  // Esconde a mensagem
 
-        google.script.run
-          .withSuccessHandler(function(response) {
-            console.log(functionName + ' executada com sucesso.');
-            // Reabilitar todos os botões após a execução
-            buttons.forEach(function(button) {
-              button.classList.remove('disabled');
-              button.classList.remove('active');
-            });
-          })
-          .withFailureHandler(function(error) {
-            console.log('Erro ao executar ' + functionName + ': ' + error);
-            // Reabilitar todos os botões em caso de erro também
-            buttons.forEach(function(button) {
-              button.classList.remove('disabled');
-              button.classList.remove('active');
-            });
-          })
-          [functionName](); // Chama a função do lado do servidor com base no nome passado
+        // Chamando a função diretamente com base no nome
+        switch (functionName) {
+          case 'updateBP_SALVADOR':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_SALVADOR();
+            break;
+          case 'updateDC_SUDESTE':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateDC_SUDESTE();
+            break;
+          case 'updateBP_CE':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_CE();
+            break;
+          case 'updateBP_BHPAMPULHA':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_BHPAMPULHA();
+            break;
+          case 'updateBP_SULMG':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_SULMG();
+            break;
+          case 'updateBP_RJ':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_RJ();
+            break;
+          default:
+            console.error('Função desconhecida: ' + functionName);
+            showMessage('error', 'Erro ao atualizar: Função desconhecida');
+            enableAllButtons();
+        }
+      }
+
+      function showMessage(type, message) {
+        var messageDiv = document.getElementById('message');
+        if (type === 'success') {
+          messageDiv.className = 'success-message';
+        } else if (type === 'error') {
+          messageDiv.className = 'error-message';
+        }
+        messageDiv.textContent = message;
+        messageDiv.style.display = 'block';  // Mostra a mensagem
+        document.getElementById('loadingIndicator').style.display = 'none';  // Esconde o indicador de processamento
+      }
+
+      function enableAllButtons() {
+        var buttons = document.querySelectorAll('a');
+        buttons.forEach(function(button) {
+          button.classList.remove('inactive', 'active');
+          button.setAttribute('onclick', 'runUpdateFunction("' + button.id + '", this)');
+        });
       }
     </script>
   </body>

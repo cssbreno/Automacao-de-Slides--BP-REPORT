@@ -5,12 +5,12 @@
     <style>
       body {
         font-family: Arial, sans-serif;
-        background-color: #f8f9fa;
+        background-color: #F5F5F5; /* Cinza Claro */
         margin: 0;
         padding: 20px;
       }
       h2 {
-        color: #66246B;
+        color: #253C59; /* Azul Escuro */
       }
       ul {
         list-style-type: none;
@@ -22,28 +22,268 @@
       a {
         display: block;
         text-decoration: none;
-        color: #66CC66;
+        color: #D9B70D; /* Amarelo Ouro */
         padding: 10px;
         border-radius: 4px;
-        background-color: #66246B;
+        background-color: #253C59; /* Azul Escuro */
         text-align: center;
         font-weight: bold;
+        cursor: pointer;
+        transition: background-color 0.3s, color 0.3s, opacity 0.3s;
       }
       a:hover {
-        background-color: #5a1d4d;
+        background-color: #D9B70D; /* Amarelo Ouro */
+        color: #253C59; /* Azul Escuro */
+      }
+      .inactive {
+        opacity: 0.3;
+        pointer-events: none;
+        background-color: #E0E0E0; /* Cinza Claro */
+        color: #B0B0B0; /* Cinza Médio */
+      }
+      .active {
+        opacity: 0.7;
+        pointer-events: none;
+        background-color: #B0B0B0; /* Cinza Médio */
+        color: #E0E0E0; /* Cinza Claro */
+      }
+      #loadingIndicator {
+        display: none;
+        margin-top: 20px;
+        color: #253C59; /* Azul Escuro */
+        font-size: 1.1em;
+        text-align: center;
+        text-shadow: 1px 1px 2px #B0B0B0; /* Sombra de texto leve */
+      }
+      .loading-text span {
+        opacity: 0;
+        animation: fadeIn 1.5s infinite;
+      }
+      .loading-text span:nth-child(1) {
+        animation-delay: 0s;
+      }
+      .loading-text span:nth-child(2) {
+        animation-delay: 0.1s;
+      }
+      .loading-text span:nth-child(3) {
+        animation-delay: 0.2s;
+      }
+      .loading-text span:nth-child(4) {
+        animation-delay: 0.3s;
+      }
+      .loading-text span:nth-child(5) {
+        animation-delay: 0.4s;
+      }
+      .loading-text span:nth-child(6) {
+        animation-delay: 0.5s;
+      }
+      .loading-text span:nth-child(7) {
+        animation-delay: 0.6s;
+      }
+      .loading-text span:nth-child(8) {
+        animation-delay: 0.7s;
+      }
+      .loading-text span:nth-child(9) {
+        animation-delay: 0.8s;
+      }
+      .loading-text span:nth-child(10) {
+        animation-delay: 0.9s;
+      }
+      .loading-text span:nth-child(11) {
+        animation-delay: 1s;
+      }
+      @keyframes fadeIn {
+        0%, 100% {
+          opacity: 0;
+        }
+        50% {
+          opacity: 1;
+        }
+      }
+      .error-message {
+        color: red;
+        font-size: 1.1em;
+        text-align: center;
+        margin-top: 20px;
+      }
+      .success-message {
+        color: green;
+        font-size: 1.1em;
+        text-align: center;
+        margin-top: 20px;
       }
     </style>
   </head>
   <body>
     <h2>BPS - Guilherme</h2>
     <ul>
-      <li><a href="javascript:google.script.run.processSelection('BP SP METROPOLITANA')">BP SP METROPOLITANA</a></li>
-      <li><a href="javascript:google.script.run.processSelection('BP INDAIATUBA')">BP INDAIATUBA</a></li>
-      <li><a href="javascript:google.script.run.processSelection('BP MARANHÃO')">BP MARANHÃO</a></li>
-      <li><a href="javascript:google.script.run.processSelection('BP PARÁ')">BP PARÁ</a></li>
-      <li><a href="javascript:google.script.run.processSelection('BP RECIFE')">BP RECIFE</a></li>
-      <li><a href="javascript:google.script.run.processSelection('DC CENTRO SUL')">DC CENTRO SUL</a></li>
-      <li><a href="javascript:google.script.run.processSelection('BP ABC PAULISTA')">BP ABC PAULISTA</a></li>
+      <li><a id="updateBP_SPMET" onclick="runUpdateFunction('updateBP_SPMET', this)">BP SP METROPOLITANA</a></li>
+      <li><a id="updateBP_INDAIATUBA" onclick="runUpdateFunction('updateBP_INDAIATUBA', this)">BP INDAIATUBA</a></li>
+      <li><a id="updateBP_MA" onclick="runUpdateFunction('updateBP_MA', this)">BP MARANHÃO</a></li>
+      <li><a id="updateBP_PA" onclick="runUpdateFunction('updateBP_PA', this)">BP PARÁ</a></li>
+      <li><a id="updateBP_RECIFE" onclick="runUpdateFunction('updateBP_RECIFE', this)">BP RECIFE</a></li>
+      <li><a id="updateDC_CSUL" onclick="runUpdateFunction('updateDC_CSUL', this)">DC CENTRO SUL</a></li>
+      <li><a id="updateBP_ABCP" onclick="runUpdateFunction('updateBP_ABCP', this)">BP ABC PAULISTA</a></li>
     </ul>
+
+    <div id="loadingIndicator">
+      <div class="loading-text">
+        <span>P</span><span>r</span><span>o</span><span>c</span><span>e</span><span>s</span><span>s</span><span>a</span><span>n</span><span>d</span><span>o</span>
+      </div>
+    </div>
+
+    <!-- Mensagem de Erro ou Sucesso -->
+    <div id="message" class="error-message" style="display:none;"></div>
+
+    <script>
+      function runUpdateFunction(functionName, clickedElement) {
+        var buttons = document.querySelectorAll('a');
+        var loadingIndicator = document.getElementById('loadingIndicator');
+        var messageDiv = document.getElementById('message');
+
+        // Aplicar a classe 'inactive' aos botões e garantir que apenas o clicado permaneça ativo
+        buttons.forEach(function(button) {
+          if (button !== clickedElement) {
+            button.classList.add('inactive');
+            button.classList.remove('active');
+          } else {
+            button.classList.remove('inactive');
+            button.classList.add('active');
+          }
+        });
+
+        clickedElement.removeAttribute('onclick');
+        loadingIndicator.style.display = 'block';  // Mostra o indicador de processamento
+        messageDiv.style.display = 'none';  // Esconde a mensagem
+
+        // Chamando a função diretamente com base no nome
+        switch (functionName) {
+          case 'updateBP_SPMET':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_SPMET();
+            break;
+          case 'updateBP_INDAIATUBA':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_INDAIATUBA();
+            break;
+          case 'updateBP_MA':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_MA();
+            break;
+          case 'updateBP_PA':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_PA();
+            break;
+          case 'updateBP_RECIFE':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_RECIFE();
+            break;
+          case 'updateDC_CSUL':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateDC_CSUL();
+            break;
+          case 'updateBP_ABCP':
+            google.script.run
+              .withSuccessHandler(function(response) {
+                console.log(functionName + ' executada com sucesso.');
+                showMessage('success', 'Atualizado com sucesso');
+                enableAllButtons();
+              })
+              .withFailureHandler(function(error) {
+                console.error('Erro ao executar ' + functionName + ': ' + error);
+                showMessage('error', 'Erro ao atualizar: ' + error.message);
+                enableAllButtons();
+              })
+              .updateBP_ABCP();
+            break;
+          default:
+            console.error('Função não encontrada: ' + functionName);
+            showMessage('error', 'Função não encontrada: ' + functionName);
+            enableAllButtons();
+        }
+      }
+
+      function showMessage(type, message) {
+        var messageDiv = document.getElementById('message');
+        if (type === 'success') {
+          messageDiv.className = 'success-message';
+        } else if (type === 'error') {
+          messageDiv.className = 'error-message';
+        }
+        messageDiv.textContent = message;
+        messageDiv.style.display = 'block';  // Mostra a mensagem
+        document.getElementById('loadingIndicator').style.display = 'none';  // Esconde o indicador de processamento
+      }
+
+      function enableAllButtons() {
+        var buttons = document.querySelectorAll('a');
+        buttons.forEach(function(button) {
+          button.classList.remove('inactive');
+          button.classList.remove('active');
+          button.setAttribute('onclick', 'runUpdateFunction(\'' + button.id + '\', this)');
+        });
+        document.getElementById('loadingIndicator').style.display = 'none'; // Oculta o indicador de processamento
+      }
+    </script>
   </body>
 </html>
