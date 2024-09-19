@@ -1,16 +1,154 @@
+  // Nome da planilha
+  const SHEET_BP_RECIFE = 'BP RECIFE';
+  const slideIndex122 = 121; // Índice do slide (baseado em 0)
+
+// Gráfico 1
+function createCustomDonutChart() {
+  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_RECIFE);
+  const range = sheet.getRange('B6:B7'); // Ajuste o intervalo conforme seus dados
+
+  const chart = sheet.newChart()
+    .setChartType(Charts.ChartType.PIE)
+    .addRange(range)
+    .setPosition(5, 5, 0, 0)
+    .setOption('pieHole', 0.4)
+    .setOption('pieSliceText', 'value')
+    .setOption('legend', { position: 'none' })
+    .setOption('backgroundColor', { 'fill': '#FFFFFF' })
+    .setOption('pieSliceTextStyle', { 'fontSize': '24','color': '#FFFFFF', 'bold': true })
+    .setOption('slices', {
+      0: { offset: 0.1, color: '#FF0000' },
+      1: { offset: 0.1, color: '#274D8D' }
+    })
+    .setOption('pieSliceBorderColor', '#D3D3D3')
+    .setOption('pieSliceBorderWidth', 2)
+    .setOption('pieSliceBorderRadius', 5)
+    .build();
+
+  sheet.insertChart(chart);
+  insertChartIntoSlide(chart);
+}
+
+// Gráfico 2
+function createCustomDonutChart2() {
+  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_RECIFE);
+  const range = sheet.getRange('B18:B19'); // Ajuste o intervalo conforme seus dados
+
+  const chart = sheet.newChart()
+    .setChartType(Charts.ChartType.PIE)
+    .addRange(range)
+    .setPosition(5, 5, 0, 0)
+    .setOption('pieHole', 0.4)
+    .setOption('pieSliceText', 'value')
+    .setOption('legend', { position: 'none' })
+    .setOption('backgroundColor', { 'fill': '#FFFFFF' })
+    .setOption('pieSliceTextStyle', { 'fontSize': '24','color': '#FFFFFF', 'bold': true })
+    .setOption('slices', {
+      0: { offset: 0.1, color: '#FF0000' },
+      1: { offset: 0.1, color: '#274D8D' }
+    })
+    .setOption('pieSliceBorderColor', '#D3D3D3')
+    .setOption('pieSliceBorderWidth', 2)
+    .setOption('pieSliceBorderRadius', 5)
+    .build();
+
+  sheet.insertChart(chart);
+  insertChartIntoSlide(chart);
+}
+
+// Gráfico 3
+function createCustomDonutChart3() {
+  const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_RECIFE);
+  const range = sheet.getRange('B30:B31'); // Ajuste o intervalo conforme seus dados
+
+  const chart = sheet.newChart()
+    .setChartType(Charts.ChartType.PIE)
+    .addRange(range)
+    .setPosition(5, 5, 0, 0)
+    .setOption('pieHole', 0.4)
+    .setOption('pieSliceText', 'value')
+    .setOption('legend', { position: 'none' })
+    .setOption('backgroundColor', { 'fill': '#FFFFFF' })
+    .setOption('pieSliceTextStyle', { 'fontSize': '24','color': '#FFFFFF', 'bold': true })
+    .setOption('slices', {
+      0: { offset: 0.1, color: '#FF0000' },
+      1: { offset: 0.1, color: '#274D8D' }
+    })
+    .setOption('pieSliceBorderColor', '#D3D3D3')
+    .setOption('pieSliceBorderWidth', 2)
+    .setOption('pieSliceBorderRadius', 5)
+    .build();
+
+  sheet.insertChart(chart);
+  insertChartIntoSlide(chart);
+}
+
+// Função para inserir gráficos no slide
+function insertChartIntoSlide(chart) {
+  if (chart) { 
+    const slides = SlidesApp.openById(SLIDES_ID);
+    const slide = slides.getSlides()[slideIndex122];
+    const blob = chart.getAs('image/png'); 
+    slide.insertImage(blob);
+  }
+}
+
+// Função para atualizar os três últimos gráficos
+function updateChartsRE() {
+  const slides = SlidesApp.openById(SLIDES_ID);
+  const slide = slides.getSlides()[slideIndex122];
+  const images = slide.getImages();
+
+  if (images.length >= 3) {
+    const image1 = images[images.length - 3];
+    const image2 = images[images.length - 2];
+    const image3 = images[images.length - 1];
+    
+    const sheet = SpreadsheetApp.openById(SHEETS_ID).getSheetByName(SHEET_BP_RECIFE);
+    const charts = sheet.getCharts();
+
+    if (charts.length >= 3) {
+      updateImage(slide, image1, charts[charts.length - 3]);
+      updateImage(slide, image2, charts[charts.length - 2]);
+      updateImage(slide, image3, charts[charts.length - 1]);
+    }
+  }
+}
+
+// Função para atualizar uma imagem no slide com o gráfico correspondente
+function updateImage(slide, image, chart) {
+  const blob = chart.getAs('image/png');
+  const left = image.getLeft();
+  const top = image.getTop();
+  const width = image.getWidth();
+  const height = image.getHeight();
+
+  image.remove();
+  slide.insertImage(blob, left, top, width, height);
+}
+
+// Menu
+function onOpen() {
+  const ui = SlidesApp.getUi();
+  ui.createMenu('Planplan')
+    .addItem('Atualizar Gráficos', 'updateLastThreeCharts')
+    .addToUi();
+}
+
+
 // Atualizar informações da planilha para o slide
 function updateBP_RECIFE() {
 
   // IDs da apresentação e da planilha
   const SLIDES_ID = '1whKu0ncTiW3qFmPUXusqTL7zu_ai_uy4kz09oyoaq34';
-  const SHEETS_ID = '1GZAPqryb7C3J_rF2GpyMAYkqj5itteDZn_MD6cDmB1Q';
+  const SHEETS_ID = '1IzLxgwKKhWsOkudUGUnPp-r3LLpWDVgR_xQ77sRsdFQ';
 
   // Nome da planilha
   const SHEET_BP_RECIFE = 'BP RECIFE';
 
-  // 💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙 SLIDE 28 💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙💙
+  // 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖 Dados - planilha 🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖🤖
 
-  const slideIndex28 = 27; // Índice do slide (baseado em 0)
+  const slideIndex122 = 121; // Índice do slide (baseado em 0)
 
   try {
     // Acessar a planilha e os dados
@@ -20,7 +158,7 @@ function updateBP_RECIFE() {
 
     // Acessar a apresentação e o slide
     var presentation = SlidesApp.openById(SLIDES_ID);
-    var slide28 = presentation.getSlides()[slideIndex28];
+    var slide122 = presentation.getSlides()[slideIndex122];
 
     // ⭐ PROJETOS NOVOS - 1ª FASE ⭐ 
 
@@ -37,10 +175,10 @@ function updateBP_RECIFE() {
       var PN_SUSPENDED_PERCENTAGE_Formatado = PN_SUSPENDED_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
       var PN_INPROGRESS_PERCENTAGE_Formatado = PN_INPROGRESS_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
-    slide28.getShapes()[147].getText().setText(PN_INPROGRESS_PERCENTAGE_Formatado + "%"); // Em andamento
-    slide28.getShapes()[150].getText().setText(PN_SUSPENDED_PERCENTAGE_Formatado + "%"); // Suspensos
-    slide28.getShapes()[153].getText().setText(PN_TOTAL); // Total
-    slide28.getShapes()[154].getText().setText(DATAMOUNTH); // Período
+    slide122.getShapes()[147].getText().setText(PN_INPROGRESS_PERCENTAGE_Formatado + "%"); // Em andamento
+    slide122.getShapes()[150].getText().setText(PN_SUSPENDED_PERCENTAGE_Formatado + "%"); // Suspensos
+    slide122.getShapes()[153].getText().setText(PN_TOTAL); // Total
+    slide122.getShapes()[154].getText().setText(DATAMOUNTH); // Período
 
 
     // ⭐ PROJETOS NOVOS - 2ª FASE ⭐ 
@@ -56,9 +194,9 @@ function updateBP_RECIFE() {
       var PN2_SUSPENDED_PERCENTAGE_Formatado = PN2_SUSPENDED_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
       var PN2_INPROGRESS_PERCENTAGE_Formatado = PN2_INPROGRESS_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
-    slide28.getShapes()[40].getText().setText(PN2_INPROGRESS_PERCENTAGE_Formatado + "%"); // Em andamento
-    slide28.getShapes()[43].getText().setText(PN2_SUSPENDED_PERCENTAGE_Formatado + "%"); // Suspensos
-    slide28.getShapes()[173].getText().setText(PN2_TOTAL); // Total
+    slide122.getShapes()[40].getText().setText(PN2_INPROGRESS_PERCENTAGE_Formatado + "%"); // Em andamento
+    slide122.getShapes()[43].getText().setText(PN2_SUSPENDED_PERCENTAGE_Formatado + "%"); // Suspensos
+    slide122.getShapes()[173].getText().setText(PN2_TOTAL); // Total
 
 
     // ⭐ PROJETOS ANTIGOS - 1ª FASE e 2ª FASE ⭐
@@ -75,12 +213,14 @@ function updateBP_RECIFE() {
       var PA_SUSPENDED_PERCENTAGE_Formatado = PA_SUSPENDED_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
       var PA_INPROGRESS_PERCENTAGE_Formatado = PA_INPROGRESS_PERCENTAGE.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
-    slide28.getShapes()[46].getText().setText(PA_INPROGRESS_PERCENTAGE_Formatado + "%"); // Em andamento
-    slide28.getShapes()[49].getText().setText(PA_SUSPENDED_PERCENTAGE_Formatado + "%"); // Suspensos
-    slide28.getShapes()[176].getText().setText(PA_TOTAL); // Total
-    // slide28.getShapes()[##].getText().setText(PA_SUSPENDED_PERCENTAGE + "%"); // Suspensos
-    // slide28.getShapes()[##].getText().setText(PA_INPROGRESS_PERCENTAGE + "%"); // Suspensos
+    slide122.getShapes()[46].getText().setText(PA_INPROGRESS_PERCENTAGE_Formatado + "%"); // Em andamento
+    slide122.getShapes()[49].getText().setText(PA_SUSPENDED_PERCENTAGE_Formatado + "%"); // Suspensos
+    slide122.getShapes()[176].getText().setText(PA_TOTAL); // Total
+    // slide122.getShapes()[##].getText().setText(PA_SUSPENDED_PERCENTAGE + "%"); // Suspensos
+    // slide122.getShapes()[##].getText().setText(PA_INPROGRESS_PERCENTAGE + "%"); // Suspensos
 
+
+    updateChartsRE();
 
 
     // ⭐ PROJETOS CONCLUÍDOS 
@@ -89,9 +229,9 @@ function updateBP_RECIFE() {
       var PC_FASE2 = sheet.getRange('B40').getValue();
       var PC_TOTAL = sheet.getRange('B41').getValue();
 
-      slide28.getShapes()[22].getText().setText(PC_FASE1 + " - Fase 1"); // Projetos Concluídos - 1ª Fase 
-      slide28.getShapes()[155].getText().setText(PC_FASE2 + " -  Fase 2"); // Projetos Concluídos - 2ª Fase 
-      slide28.getShapes()[20].getText().setText(PC_TOTAL + " TOTAL"); // Projetos Concluídos - Total
+      slide122.getShapes()[22].getText().setText(PC_FASE1 + " - Fase 1"); // Projetos Concluídos - 1ª Fase 
+      slide122.getShapes()[155].getText().setText(PC_FASE2 + " -  Fase 2"); // Projetos Concluídos - 2ª Fase 
+      slide122.getShapes()[20].getText().setText(PC_TOTAL + " TOTAL"); // Projetos Concluídos - Total
     
 
 
@@ -101,13 +241,13 @@ function updateBP_RECIFE() {
       var PEP_META_NOVOS = sheet.getRange('B51').getValue();
       
 
-        slide28.getShapes()[203].getText().setText(PEP_ATINGIDO_NOVOS + "%"); // PEP - Atingido - Projetos Novos
-        // slide28.getShapes()[204].getText().setText(PEP_META_NOVOS + "%"); // PEP - Meta - Projetos Novos
+        slide122.getShapes()[203].getText().setText(PEP_ATINGIDO_NOVOS + "%"); // PEP - Atingido - Projetos Novos
+        // slide122.getShapes()[204].getText().setText(PEP_META_NOVOS + "%"); // PEP - Meta - Projetos Novos
 
       // Ajustar a largura da barra de progresso com base na porcentagem - Projetos Novos
       var maxHeight_PEP_NOVOS = 100.55; // Largura máxima da barra de progresso - Projetos Novos
       var newHeight_PEP_NOVOS = Math.min((PEP_ATINGIDO_NOVOS / 100) * maxHeight_PEP_NOVOS + 0.000001, maxHeight_PEP_NOVOS)
-      slide28.getShapes()[200].setHeight(newHeight_PEP_NOVOS); // Ajustar a altura da barra de progresso - Projetos Novos
+      slide122.getShapes()[200].setHeight(newHeight_PEP_NOVOS); // Ajustar a altura da barra de progresso - Projetos Novos
 
 
 
@@ -116,13 +256,13 @@ function updateBP_RECIFE() {
       var PEP_META_ANTIGOS = sheet.getRange('B52').getValue();
       
 
-        slide28.getShapes()[222].getText().setText(PEP_ATINGIDO_ANTIGOS + "%"); // PEP - Atingido - Projetos Antigos
-        // slide28.getShapes()[223].getText().setText(PEP_META_ANTIGOS + "%"); // PEP - Meta - Projetos Antigos
+        slide122.getShapes()[222].getText().setText(PEP_ATINGIDO_ANTIGOS + "%"); // PEP - Atingido - Projetos Antigos
+        // slide122.getShapes()[223].getText().setText(PEP_META_ANTIGOS + "%"); // PEP - Meta - Projetos Antigos
 
       // Ajustar a largura da barra de progresso com base na porcentagem - Projetos Antigos
       var maxHeight_PEP_ANTIGOS = 100.55; // Largura máxima da barra de progresso - Projetos Antigos
       var newHeight_PEP_ANTIGOS = Math.min((PEP_ATINGIDO_ANTIGOS / 100) * maxHeight_PEP_ANTIGOS + 0.000001, maxHeight_PEP_ANTIGOS)
-      slide28.getShapes()[208].setHeight(newHeight_PEP_ANTIGOS); // Ajustar a altura da barra de progresso - Projetos Antigos
+      slide122.getShapes()[208].setHeight(newHeight_PEP_ANTIGOS); // Ajustar a altura da barra de progresso - Projetos Antigos
 
 
 
@@ -134,9 +274,9 @@ function updateBP_RECIFE() {
       var CONFORMIDADE_COR_FONTE = sheet.getRange('L62').getValue();
 
 
-        slide28.getShapes()[143].getText().setText(CONFORMIDADE_ATINGIDO + "%"); // Conformidade - ATINGIDO
-        // slide28.getShapes()[144].getText().setText(CONFORMIDADE_META + "%"); // Conformidade - META
-        slide28.getShapes()[143].getText().getTextStyle().setForegroundColor(CONFORMIDADE_COR_FONTE); // Conformidade: Meta Atingida - Cor da fonte
+        slide122.getShapes()[143].getText().setText(CONFORMIDADE_ATINGIDO + "%"); // Conformidade - ATINGIDO
+        // slide122.getShapes()[144].getText().setText(CONFORMIDADE_META + "%"); // Conformidade - META
+        slide122.getShapes()[143].getText().getTextStyle().setForegroundColor(CONFORMIDADE_COR_FONTE); // Conformidade: Meta Atingida - Cor da fonte
 
       // Valor a ser puxado dentro da planilha
       var CRONOGRAMA = sheet.getRange('B62').getValue();
@@ -158,56 +298,56 @@ function updateBP_RECIFE() {
       var BARRA_ENCERRAMENTO = sheet.getRange('K68').getValue();
       
         // Ajustar os valores contidos dentro das barras
-        slide28.getShapes()[68].getText().setText(CRONOGRAMA + "%"); // Conformidade - Cronograma
-        slide28.getShapes()[66].getText().setText(SINTONIA + "%"); // Conformidade - Sintonia
-        slide28.getShapes()[64].getText().setText(APONTAMENTO_HORAS + "%"); // Conformidade - Apontamento de horas
-        slide28.getShapes()[85].getText().setText(ESCOPO + "%"); // Conformidade - Escopo
-        slide28.getShapes()[83].getText().setText(SIMULACAO + "%"); // Conformidade - Simulação
-        slide28.getShapes()[81].getText().setText(KICKOFF + "%"); // Conformidade - Kickoff
-        slide28.getShapes()[87].getText().setText(ENCERRAMENTO + "%"); // Conformidade - Encerramento
+        slide122.getShapes()[68].getText().setText(CRONOGRAMA + "%"); // Conformidade - Cronograma
+        slide122.getShapes()[66].getText().setText(SINTONIA + "%"); // Conformidade - Sintonia
+        slide122.getShapes()[64].getText().setText(APONTAMENTO_HORAS + "%"); // Conformidade - Apontamento de horas
+        slide122.getShapes()[85].getText().setText(ESCOPO + "%"); // Conformidade - Escopo
+        slide122.getShapes()[83].getText().setText(SIMULACAO + "%"); // Conformidade - Simulação
+        slide122.getShapes()[81].getText().setText(KICKOFF + "%"); // Conformidade - Kickoff
+        slide122.getShapes()[87].getText().setText(ENCERRAMENTO + "%"); // Conformidade - Encerramento
 
       
       // Ajustar a largura da barra de progresso com base na porcentagem
       var maxHeight_CRONOGRAMA = 68.26; // Largura máxima da barra de progresso (CRONOGRAMA)
       var newHeight_CRONOGRAMA = Math.min((CRONOGRAMA / 100) * maxHeight_CRONOGRAMA + 0.000001, maxHeight_CRONOGRAMA)
-      slide28.getShapes()[67].setHeight(newHeight_CRONOGRAMA); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[67].getFill().setSolidFill(BARRA_CRONOGRAMA); // Aplicar a cor sólida ao preenchimento
+      slide122.getShapes()[67].setHeight(newHeight_CRONOGRAMA); // Ajustar a altura da barra de progresso
+      slide122.getShapes()[67].getFill().setSolidFill(BARRA_CRONOGRAMA); // Aplicar a cor sólida ao preenchimento
 
       // Ajustar a largura da barra de progresso com base na porcentagem (SINTONIA)
       var maxHeight_SINTONIA = 68.26; // Largura máxima da barra de progresso
       var newHeight_SINTONIA = Math.min((SINTONIA / 100) * maxHeight_SINTONIA + 0.000001, maxHeight_SINTONIA)
-      slide28.getShapes()[65].setHeight(newHeight_SINTONIA); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[65].getFill().setSolidFill(BARRA_SINTONIA); // Aplicar a cor sólida ao preenchimento
+      slide122.getShapes()[65].setHeight(newHeight_SINTONIA); // Ajustar a altura da barra de progresso
+      slide122.getShapes()[65].getFill().setSolidFill(BARRA_SINTONIA); // Aplicar a cor sólida ao preenchimento
 
       // Ajustar a largura da barra de progresso com base na porcentagem (APONTAMENTO DE HORAS)
       var maxHeight_APONTAMENTO_HORAS = 68.26; // Largura máxima da barra de progresso
       var newHeight_APONTAMENTO_HORAS = Math.min((APONTAMENTO_HORAS / 100) * maxHeight_APONTAMENTO_HORAS + 0.000001, maxHeight_APONTAMENTO_HORAS)
-      slide28.getShapes()[63].setHeight(newHeight_APONTAMENTO_HORAS); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[63].getFill().setSolidFill(BARRA_APONTAMENTOH); // Aplicar a cor sólida ao preenchimento
+      slide122.getShapes()[63].setHeight(newHeight_APONTAMENTO_HORAS); // Ajustar a altura da barra de progresso
+      slide122.getShapes()[63].getFill().setSolidFill(BARRA_APONTAMENTOH); // Aplicar a cor sólida ao preenchimento
 
       // Ajustar a largura da barra de progresso com base na porcentagem (ESCOPO)
       var maxHeight_ESCOPO = 68.26; // Largura máxima da barra de progresso
       var newHeight_ESCOPO = Math.min((ESCOPO / 100) * maxHeight_ESCOPO + 0.000001, maxHeight_ESCOPO)
-      slide28.getShapes()[84].setHeight(newHeight_ESCOPO); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[84].getFill().setSolidFill(BARRA_ESCOPO); // Aplicar a cor sólida ao preenchimento
+      slide122.getShapes()[84].setHeight(newHeight_ESCOPO); // Ajustar a altura da barra de progresso
+      slide122.getShapes()[84].getFill().setSolidFill(BARRA_ESCOPO); // Aplicar a cor sólida ao preenchimento
 
       // Ajustar a largura da barra de progresso com base na porcentagem (SIMULAÇÃO)
       var maxHeight_SIMULACAO = 68.26; // Largura máxima da barra de progresso
       var newHeight_SIMULACAO = Math.min((SIMULACAO / 100) * maxHeight_SIMULACAO + 0.000001, maxHeight_SIMULACAO)
-      slide28.getShapes()[82].setHeight(newHeight_SIMULACAO); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[82].getFill().setSolidFill(BARRA_SIMULACAO); // Aplicar a cor sólida ao preenchimento
+      slide122.getShapes()[82].setHeight(newHeight_SIMULACAO); // Ajustar a altura da barra de progresso
+      slide122.getShapes()[82].getFill().setSolidFill(BARRA_SIMULACAO); // Aplicar a cor sólida ao preenchimento
 
       // Ajustar a largura da barra de progresso com base na porcentagem (KICKOFF)
       var maxHeight_KICKOFF = 68.26; // Largura máxima da barra de progresso
       var newHeight_KICKOFF = Math.min((KICKOFF / 100) * maxHeight_KICKOFF + 0.000001, maxHeight_KICKOFF)
-      slide28.getShapes()[80].setHeight(newHeight_KICKOFF); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[80].getFill().setSolidFill(BARRA_KICKOFF); // Aplicar a cor sólida ao preenchimento
+      slide122.getShapes()[80].setHeight(newHeight_KICKOFF); // Ajustar a altura da barra de progresso
+      slide122.getShapes()[80].getFill().setSolidFill(BARRA_KICKOFF); // Aplicar a cor sólida ao preenchimento
 
       // Ajustar a largura da barra de progresso com base na porcentagem (ENCERRAMENTO)
       var maxHeight_ENCERRAMENTO = 68.26; // Largura máxima da barra de progresso
       var newHeight_ENCERRAMENTO = Math.min((ENCERRAMENTO / 100) * maxHeight_ENCERRAMENTO + 0.000001, maxHeight_ENCERRAMENTO)
-      slide28.getShapes()[86].setHeight(newHeight_ENCERRAMENTO); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[86].getFill().setSolidFill(BARRA_ENCERRAMENTO); // Aplicar a cor sólida ao preenchimento
+      slide122.getShapes()[86].setHeight(newHeight_ENCERRAMENTO); // Ajustar a altura da barra de progresso
+      slide122.getShapes()[86].getFill().setSolidFill(BARRA_ENCERRAMENTO); // Aplicar a cor sólida ao preenchimento
       
 
     // ⭐ PROJETOS CONCLUÍDOS - CLUSTER ⭐
@@ -219,11 +359,11 @@ function updateBP_RECIFE() {
       var CLUSTER_1500MAIS_A = sheet.getRange('B82').getValue();
       var CLUSTER_TOTAL_A = sheet.getRange('B84').getValue();
       
-      slide28.getShapes()[37].getText().setText(CLUSTER_500_A); // Cluster <= 500H (ANTIGOS)
-      slide28.getShapes()[163].getText().setText(CLUSTER_1000_A); // Cluster <= 1000H (ANTIGOS)
-      slide28.getShapes()[166].getText().setText(CLUSTER_1500_A); // Cluster <= 1500H (ANTIGOS)
-      slide28.getShapes()[169].getText().setText(CLUSTER_1500MAIS_A); // Cluster > 1500H (ANTIGOS)
-      slide28.getShapes()[14].getText().setText(CLUSTER_TOTAL_A); // Cluster TOTAL (ANTIGOS)
+      slide122.getShapes()[37].getText().setText(CLUSTER_500_A); // Cluster <= 500H (ANTIGOS)
+      slide122.getShapes()[163].getText().setText(CLUSTER_1000_A); // Cluster <= 1000H (ANTIGOS)
+      slide122.getShapes()[166].getText().setText(CLUSTER_1500_A); // Cluster <= 1500H (ANTIGOS)
+      slide122.getShapes()[169].getText().setText(CLUSTER_1500MAIS_A); // Cluster > 1500H (ANTIGOS)
+      slide122.getShapes()[14].getText().setText(CLUSTER_TOTAL_A); // Cluster TOTAL (ANTIGOS)
 
       var CLUSTER_500_N = sheet.getRange('B77').getValue();
       var CLUSTER_1000_N = sheet.getRange('B79').getValue();
@@ -231,11 +371,11 @@ function updateBP_RECIFE() {
       var CLUSTER_1500MAIS_N = sheet.getRange('B83').getValue();
       var CLUSTER_TOTAL_N = sheet.getRange('B85').getValue();
 
-      slide28.getShapes()[50].getText().setText(CLUSTER_500_N); // Cluster <= 500H (NOVOS)
-      slide28.getShapes()[164].getText().setText(CLUSTER_1000_N); // Cluster <= 1000H (NOVOS)
-      slide28.getShapes()[167].getText().setText(CLUSTER_1500_N); // Cluster <= 1500H (NOVOS)
-      slide28.getShapes()[170].getText().setText(CLUSTER_1500MAIS_N); // Cluster > 1500H (NOVOS)
-      slide28.getShapes()[19].getText().setText(CLUSTER_TOTAL_N); // Cluster TOTAL (NOVOS)
+      slide122.getShapes()[50].getText().setText(CLUSTER_500_N); // Cluster <= 500H (NOVOS)
+      slide122.getShapes()[164].getText().setText(CLUSTER_1000_N); // Cluster <= 1000H (NOVOS)
+      slide122.getShapes()[167].getText().setText(CLUSTER_1500_N); // Cluster <= 1500H (NOVOS)
+      slide122.getShapes()[170].getText().setText(CLUSTER_1500MAIS_N); // Cluster > 1500H (NOVOS)
+      slide122.getShapes()[19].getText().setText(CLUSTER_TOTAL_N); // Cluster TOTAL (NOVOS)
 
 
     // ⭐ DMP ⭐
@@ -246,9 +386,9 @@ function updateBP_RECIFE() {
 
 
         // Ajustar os valores contidos dentro das barras
-        slide28.getShapes()[195].getText().setText(DMP_ATINGIDO + "%"); // DMP - Atingido
-        // slide28.getShapes()[198].getText().setText(DMP_META + "%"); // DMP - Meta
-        // slide28.getShapes()[177].getText().setText(DMP_DESCRITIVO); // DMP - Texto descritivo abaixo da box
+        slide122.getShapes()[195].getText().setText(DMP_ATINGIDO + "%"); // DMP - Atingido
+        // slide122.getShapes()[198].getText().setText(DMP_META + "%"); // DMP - Meta
+        // slide122.getShapes()[177].getText().setText(DMP_DESCRITIVO); // DMP - Texto descritivo abaixo da box
 
 
 
@@ -258,20 +398,20 @@ function updateBP_RECIFE() {
         // Ajustar a largura da barra de progresso com base na porcentagem (ESCOPO)
       var maxHeight_DMP = 120; // Largura máxima da barra de progresso
       var newHeight_DMP = Math.min((DMP_ATINGIDO / 20)  * maxHeight_DMP + 0.000001, maxHeight_DMP)
-      slide28.getShapes()[196].setHeight(newHeight_DMP); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[196].getFill().setSolidFill(BARRA_DMP); // Aplicar a cor sólida ao preenchimento
+      slide122.getShapes()[196].setHeight(newHeight_DMP); // Ajustar a altura da barra de progresso
+      slide122.getShapes()[196].getFill().setSolidFill(BARRA_DMP); // Aplicar a cor sólida ao preenchimento
 
 
-    // ❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎ SLIDE 29 ❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎❎
+    // ❎❎❎❎❎❎❎❎❎❎ SLIDE 123 ❎❎❎❎❎❎❎❎❎❎
 
-      const slideIndex29 = 28; // Índice do slide (baseado em 0)
+      const slideIndex123 = 122; // Índice do slide (baseado em 0)
 
     // Acessar a apresentação e o slide
     var presentation = SlidesApp.openById(SLIDES_ID);
-    var slide28 = presentation.getSlides()[slideIndex29];
+    var slide123 = presentation.getSlides()[slideIndex123];
 
         var DATAMOUNTH2 = sheet.getRange('C38').getValue();
-      slide28.getShapes()[24].getText().setText(DATAMOUNTH2); // Período
+      slide123.getShapes()[24].getText().setText(DATAMOUNTH2); // Período
 
 
       var SATISFAÇAO_ATINGIDO_PN = sheet.getRange('B108').getValue();
@@ -288,27 +428,27 @@ function updateBP_RECIFE() {
 
 
         // Ajustar os valores  - SATISFAÇÃO DE PROJETOS NOVOS
-        slide28.getShapes()[5].getText().setText(SATISFAÇAO_ATINGIDO_PN + "%"); // SATISFAÇÃO - ATINGIDO
-        // slide28.getShapes()[6].getText().setText(SATISFAÇAO_META_PN + "%"); // SATISFAÇÃO - META
-        slide28.getShapes()[5].getText().getTextStyle().setForegroundColor(SATISFAÇAO_COR_FONTE_PN); // Satisfação: Atingido - Cor da fonte
+        slide123.getShapes()[5].getText().setText(SATISFAÇAO_ATINGIDO_PN + "%"); // SATISFAÇÃO - ATINGIDO
+        // slide123.getShapes()[6].getText().setText(SATISFAÇAO_META_PN + "%"); // SATISFAÇÃO - META
+        slide123.getShapes()[5].getText().getTextStyle().setForegroundColor(SATISFAÇAO_COR_FONTE_PN); // Satisfação: Atingido - Cor da fonte
 
         // Ajustar os valores  - SATISFAÇÃO DE PROJETOS ANTIGOS
-        slide28.getShapes()[9].getText().setText(SATISFAÇAO_ATINGIDO_PA + "%"); // SATISFAÇÃO - ATINGIDO
-        // slide28.getShapes()[10].getText().setText(SATISFAÇAO_META_PA + "%"); // SATISFAÇÃO - META
-        slide28.getShapes()[9].getText().getTextStyle().setForegroundColor(SATISFAÇAO_COR_FONTE_PA); // Satisfação: Meta - Cor da fonte
+        slide123.getShapes()[9].getText().setText(SATISFAÇAO_ATINGIDO_PA + "%"); // SATISFAÇÃO - ATINGIDO
+        // slide123.getShapes()[10].getText().setText(SATISFAÇAO_META_PA + "%"); // SATISFAÇÃO - META
+        slide123.getShapes()[9].getText().getTextStyle().setForegroundColor(SATISFAÇAO_COR_FONTE_PA); // Satisfação: Meta - Cor da fonte
 
 
         // Ajustar a largura da barra de progresso com base na porcentagem (SATISFAÇÃO - PROJETOS NOVOS)
       var maxHeight_SAT_PN = 100.65; // Largura máxima da barra de progresso
       var newHeight_SAT_PN = Math.min((SATISFAÇAO_ATINGIDO_PN / 100) * maxHeight_SAT_PN + 0.000001, maxHeight_SAT_PN)
-      slide28.getShapes()[4].setHeight(newHeight_SAT_PN); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[4].getFill().setSolidFill(BARRA_SAT_NOVOS); // Aplicar a cor sólida ao preenchimento
+      slide123.getShapes()[4].setHeight(newHeight_SAT_PN); // Ajustar a altura da barra de progresso
+      slide123.getShapes()[4].getFill().setSolidFill(BARRA_SAT_NOVOS); // Aplicar a cor sólida ao preenchimento
 
         // Ajustar a largura da barra de progresso com base na porcentagem (SATISFAÇÃO - PROJETOS ANTIGOS)
       var maxHeight_SAT_PA = 100.65; // Largura máxima da barra de progresso
       var newHeight_SAT_PA = Math.min((SATISFAÇAO_ATINGIDO_PA / 100) * maxHeight_SAT_PA + 0.000001, maxHeight_SAT_PA)
-      slide28.getShapes()[8].setHeight(newHeight_SAT_PA); // Ajustar a altura da barra de progresso
-      slide28.getShapes()[8].getFill().setSolidFill(BARRA_SAT_ANTIGOS); // Aplicar a cor sólida ao preenchimento
+      slide123.getShapes()[8].setHeight(newHeight_SAT_PA); // Ajustar a altura da barra de progresso
+      slide123.getShapes()[8].getFill().setSolidFill(BARRA_SAT_ANTIGOS); // Aplicar a cor sólida ao preenchimento
 
     // Ofensores - Lista
 
@@ -318,47 +458,47 @@ function updateBP_RECIFE() {
       var OFENSOR_04 = sheet.getRange('B122').getValue();
       var OFENSOR_05 = sheet.getRange('B123').getValue();
 
-      slide28.getShapes()[13].getText().setText(OFENSOR_01); // Item 1 da lista de Ofensores
-      slide28.getShapes()[14].getText().setText(OFENSOR_02); // Item 2 da lista de Ofensores
-      slide28.getShapes()[16].getText().setText(OFENSOR_03); // Item 3 da lista de Ofensores
-      slide28.getShapes()[18].getText().setText(OFENSOR_04); // Item 4 da lista de Ofensores
-      slide28.getShapes()[20].getText().setText(OFENSOR_05); // Item 5 da lista de Ofensores
+      slide123.getShapes()[13].getText().setText(OFENSOR_01); // Item 1 da lista de Ofensores
+      slide123.getShapes()[14].getText().setText(OFENSOR_02); // Item 2 da lista de Ofensores
+      slide123.getShapes()[16].getText().setText(OFENSOR_03); // Item 3 da lista de Ofensores
+      slide123.getShapes()[18].getText().setText(OFENSOR_04); // Item 4 da lista de Ofensores
+      slide123.getShapes()[20].getText().setText(OFENSOR_05); // Item 5 da lista de Ofensores
 
 
 
-      // ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡ SLIDE 30 ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
+      // ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡ SLIDE 124 ⚡⚡⚡⚡⚡⚡⚡⚡⚡⚡
 
 
     // Indice do slide 30
-    const slideIndex30 = 29; // Índice do slide (baseado em 0)
+    const slideIndex124 = 123; // Índice do slide (baseado em 0)
 
     // Acessar a apresentação e o slide
     var presentation = SlidesApp.openById(SLIDES_ID);
-    var slide30 = presentation.getSlides()[slideIndex30];
+    var slide124 = presentation.getSlides()[slideIndex124];
 
     var DATAMOUNTH2 = sheet.getRange('C38').getValue();
-    slide30.getShapes()[37].getText().setText(DATAMOUNTH2); // Período
+    slide124.getShapes()[37].getText().setText(DATAMOUNTH2); // Período
 
     // Plano de ação - caixas de texto
       var PLAN_AC_EA = sheet.getRange('B140').getValue();
       var PLAN_AC_ENC = sheet.getRange('B141').getValue();
 
-      slide30.getShapes()[33].getText().setText(PLAN_AC_EA); // Plano de ação - Em Aberto
-      slide30.getShapes()[36].getText().setText(PLAN_AC_ENC); // Plano de ação - Encerrados
+      slide124.getShapes()[33].getText().setText(PLAN_AC_EA); // Plano de ação - Em Aberto
+      slide124.getShapes()[36].getText().setText(PLAN_AC_ENC); // Plano de ação - Encerrados
 
     // Reclamações - caixa de texto
       var RECL_AC_EA = sheet.getRange('B150').getValue();
       var TOTAL_PORTF = sheet.getRange('B151').getValue();
 
-      slide30.getShapes()[5].getText().setText(RECL_AC_EA); // // Reclamações - Em Aberto
-      slide30.getShapes()[8].getText().setText(RECL_AC_EA); // // Reclamações - Em Aberto
-      slide30.getShapes()[3].getText().setText(TOTAL_PORTF); // // Reclamações - Total do Portfólio
+      slide124.getShapes()[5].getText().setText(RECL_AC_EA); // // Reclamações - Em Aberto
+      slide124.getShapes()[8].getText().setText(RECL_AC_EA); // // Reclamações - Em Aberto
+      slide124.getShapes()[3].getText().setText(TOTAL_PORTF); // // Reclamações - Total do Portfólio
 
       // MMR - caixa de texto
       var VLR_MMR = sheet.getRange('B160').getValue();
       var VLR_MMR_Formatado = 'R$ ' + VLR_MMR.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 
-      slide30.getShapes()[18].getText().setText(VLR_MMR_Formatado); // MMR - Total
+      slide124.getShapes()[18].getText().setText(VLR_MMR_Formatado); // MMR - Total
       
 
       // Principais clientes
@@ -368,11 +508,11 @@ function updateBP_RECIFE() {
       var CL4 = sheet.getRange('B175').getValue();
       var CL5 = sheet.getRange('B177').getValue();
 
-      slide30.getShapes()[9].getText().setText(CL1); // Clientes / Unidades (1)
-      slide30.getShapes()[10].getText().setText(CL2); // Clientes / Unidades (2)
-      slide30.getShapes()[12].getText().setText(CL3); // Clientes / Unidades (3)
-      slide30.getShapes()[14].getText().setText(CL4); // Clientes / Unidades (4)
-      slide30.getShapes()[16].getText().setText(CL5); // Clientes / Unidades (5)
+      slide124.getShapes()[9].getText().setText(CL1); // Clientes / Unidades (1)
+      slide124.getShapes()[10].getText().setText(CL2); // Clientes / Unidades (2)
+      slide124.getShapes()[12].getText().setText(CL3); // Clientes / Unidades (3)
+      slide124.getShapes()[14].getText().setText(CL4); // Clientes / Unidades (4)
+      slide124.getShapes()[16].getText().setText(CL5); // Clientes / Unidades (5)
 
       // Principais clientes - MMR em Risco (R$)
 
@@ -382,34 +522,34 @@ function updateBP_RECIFE() {
       var CL4_MMR = sheet.getRange('B176').getValue();
       var CL5_MMR = sheet.getRange('B178').getValue();
 
-      slide30.getShapes()[23].getText().setText(CL1_MMR + " mil"); // MMR por Cliente / Unidade (1)
-      slide30.getShapes()[24].getText().setText(CL2_MMR + " mil"); // MMR por Cliente / Unidade (2)
-      slide30.getShapes()[25].getText().setText(CL3_MMR + " mil"); // MMR por Cliente / Unidade (3)
-      slide30.getShapes()[26].getText().setText(CL4_MMR + " mil"); // MMR por Cliente / Unidade (4)
-      slide30.getShapes()[27].getText().setText(CL5_MMR + " mil"); // MMR por Cliente / Unidade (5)
+      slide124.getShapes()[23].getText().setText(CL1_MMR + " mil"); // MMR por Cliente / Unidade (1)
+      slide124.getShapes()[24].getText().setText(CL2_MMR + " mil"); // MMR por Cliente / Unidade (2)
+      slide124.getShapes()[25].getText().setText(CL3_MMR + " mil"); // MMR por Cliente / Unidade (3)
+      slide124.getShapes()[26].getText().setText(CL4_MMR + " mil"); // MMR por Cliente / Unidade (4)
+      slide124.getShapes()[27].getText().setText(CL5_MMR + " mil"); // MMR por Cliente / Unidade (5)
 
-      // 💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚💚 SLIDE 31 💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜💜
+      // 💚💚💚💚💚💚💚💚💚💚 SLIDE 125 💜💜💜💜💜💜💜💜💜💜
 
 
-        const slideIndex31 = 30; // Índice do slide (baseado em 0)
+        const slideIndex125 = 124; // Índice do slide (baseado em 0)
 
     // Acessar a apresentação e o slide
     var presentation = SlidesApp.openById(SLIDES_ID);
-    var slide31 = presentation.getSlides()[slideIndex31];
+    var slide125 = presentation.getSlides()[slideIndex125];
 
     // Dados da planilha para o slide
     var DATAMOUNTH3 = sheet.getRange('C38:F38').getValue();
-    slide31.getShapes()[12].getText().setText(DATAMOUNTH3); // Período
+    slide125.getShapes()[12].getText().setText(DATAMOUNTH3); // Período
 
 
     // Considerações finais
       var OBS_CONSID = sheet.getRange('B195').getValue();
-      slide31.getShapes()[10].getText().setText(OBS_CONSID); // Box de dados a preencher - Considerações
+      slide125.getShapes()[10].getText().setText(OBS_CONSID); // Box de dados a preencher - Considerações
 
 
     // Pontos de atenção
       var PONTOS_ATENC = sheet.getRange('B204').getValue();
-      slide31.getShapes()[11].getText().setText(PONTOS_ATENC); // Box de dados a preencher - Pontos de atenção
+      slide125.getShapes()[11].getText().setText(PONTOS_ATENC); // Box de dados a preencher - Pontos de atenção
 
 
     // Plano de ação - UNIDADES
@@ -419,11 +559,11 @@ function updateBP_RECIFE() {
       var UNID_4 = sheet.getRange('B219').getValue();
       var UNID_5 = sheet.getRange('B221').getValue();
 
-      slide31.getShapes()[13].getText().setText(UNID_1); // Box de dados a preencher - UNIDADE 1
-      slide31.getShapes()[14].getText().setText(UNID_2); // Box de dados a preencher - UNIDADE 2
-      slide31.getShapes()[15].getText().setText(UNID_3); // Box de dados a preencher - UNIDADE 3
-      slide31.getShapes()[16].getText().setText(UNID_4); // Box de dados a preencher - UNIDADE 4
-      slide31.getShapes()[17].getText().setText(UNID_5); // Box de dados a preencher - UNIDADE 5
+      slide125.getShapes()[13].getText().setText(UNID_1); // Box de dados a preencher - UNIDADE 1
+      slide125.getShapes()[14].getText().setText(UNID_2); // Box de dados a preencher - UNIDADE 2
+      slide125.getShapes()[15].getText().setText(UNID_3); // Box de dados a preencher - UNIDADE 3
+      slide125.getShapes()[16].getText().setText(UNID_4); // Box de dados a preencher - UNIDADE 4
+      slide125.getShapes()[17].getText().setText(UNID_5); // Box de dados a preencher - UNIDADE 5
 
       
       // Plano de ação
@@ -434,11 +574,11 @@ function updateBP_RECIFE() {
       var PLAN_AC_UNID_4 = sheet.getRange('B220').getValue();
       var PLAN_AC_UNID_5 = sheet.getRange('B222').getValue();
 
-      slide31.getShapes()[8].getText().setText(PLAN_AC_UNID_1); // Box de dados a preencher - Plano de ação 1
-      slide31.getShapes()[3].getText().setText(PLAN_AC_UNID_2); // Box de dados a preencher - Plano de ação 2
-      slide31.getShapes()[18].getText().setText(PLAN_AC_UNID_3); // Box de dados a preencher - Plano de ação 3
-      slide31.getShapes()[4].getText().setText(PLAN_AC_UNID_4); // Box de dados a preencher - Plano de ação 4
-      slide31.getShapes()[5].getText().setText(PLAN_AC_UNID_5); // Box de dados a preencher - Plano de ação 5
+      slide125.getShapes()[8].getText().setText(PLAN_AC_UNID_1); // Box de dados a preencher - Plano de ação 1
+      slide125.getShapes()[3].getText().setText(PLAN_AC_UNID_2); // Box de dados a preencher - Plano de ação 2
+      slide125.getShapes()[18].getText().setText(PLAN_AC_UNID_3); // Box de dados a preencher - Plano de ação 3
+      slide125.getShapes()[4].getText().setText(PLAN_AC_UNID_4); // Box de dados a preencher - Plano de ação 4
+      slide125.getShapes()[5].getText().setText(PLAN_AC_UNID_5); // Box de dados a preencher - Plano de ação 5
 
 
   } catch (e) {
