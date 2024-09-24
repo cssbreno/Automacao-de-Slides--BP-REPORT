@@ -12,9 +12,9 @@ Cinza escuro - #808285
 Cinza claro - #EDEDED
 Roxo SK - #66246B
 
-## Faltam atualizar as BPs MT, AL, SP e Norte de Minas do Otniel
+## Faltam atualizar as BPs SP e Norte de Minas do Otniel
 
-------------------------------------------------------------------
+---
 
 ## ID dos arquivos de Script dos Gerentes Regionais
 
