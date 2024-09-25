@@ -9,8 +9,8 @@ function onOpen() {
 // Função que exibe o seletor de data
 function showDateSelector() {
   const htmlOutput = HtmlService.createHtmlOutputFromFile('DateSelector')
-    .setWidth(400)
-    .setHeight(350);
+    .setWidth(450)
+    .setHeight(450);
   SlidesApp.getUi().showModalDialog(htmlOutput, 'Selecionar data');
 }
 
@@ -26,7 +26,7 @@ function updateSlideWithDate(dateStr) {
 
   const slideIndices = [6, 7, 12, 17, 22, 27, 32, 37, 38, 43, 48, 53, 58, 63, 
                         68, 69, 74, 79, 84, 89, 94, 99, 100, 105, 110, 115, 
-                        120, 125, 130, 135, 136, 141, 146, 151, 156];
+                        120, 125, 130, 135, 136, 141, 146, 151, 156, 161, 166];
   
   try {
     var presentation = SlidesApp.openById(SLIDES_ID);
@@ -61,7 +61,7 @@ function convertDateToMonthYear(dateStr) {
   ];
 
   const monthName = months[parseInt(month) - 1];
-  return `${monthName}/${year}`;
+  return `${monthName}/${yea}`;
 }
 
 // Função para validar o formato MM/AA

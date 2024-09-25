@@ -1,204 +1,236 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <base target="_top">
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background-color: #f0f0f0;
-        margin: 0;
-        padding: 0;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        min-height: 100vh;
-      }
+<head>
+  <base target="_top">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
 
-      .container {
-        width: 80%;
-        max-width: 500px;
-        background-color: #fff;
-        border-radius: 12px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        box-sizing: border-box;
-        text-align: center;
-      }
+    .container {
+      width: 80%;
+      max-width: 500px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      padding: 20px;
+      box-sizing: border-box;
+      text-align: center;
+    }
 
-      h1 {
-        color: #333;
-        margin-bottom: 20px;
-        font-size: 1.5em;
-      }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+      font-size: 1.5em;
+    }
 
-      label {
-        display: block;
-        margin-bottom: 10px;
-        font-size: 1em;
-        color: #666;
-      }
+    label {
+      display: block;
+      margin-bottom: 10px;
+      font-size: 1em;
+      color: #666;
+    }
 
-      input[type="text"] {
-        width: 100%;
-        padding: 10px;
-        font-size: 1em;
-        border: 1px solid #ddd;
-        border-radius: 6px;
-        box-sizing: border-box;
-        margin-bottom: 10px;
-        text-align: center;
-      }
+    input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: 1px solid #ddd;
+      border-radius: 6px;
+      box-sizing: border-box;
+      margin-bottom: 10px;
+      text-align: center;
+    }
 
-      .error-message {
-        color: red;
-        font-size: 0.9em;
-        margin-bottom: 10px;
-        display: none; /* Inicialmente oculto */
-      }
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      margin-bottom: 10px;
+      display: none; /* Inicialmente oculto */
+    }
 
-      button {
-        background-color: #66246B;
-        color: #fff;
-        border: none;
-        margin-bottom: 5px;
-        padding: 12px 20px;
-        font-size: 1.1em;
-        border-radius: 25px;
-        cursor: pointer;
-        transition: background-color 0.3s ease;
-        width: 100%;
-        box-sizing: border-box;
-      }
+    button {
+      background-color: #66246B;
+      color: #fff;
+      border: none;
+      margin-bottom: 5px;
+      padding: 12px 20px;
+      font-size: 1.1em;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-      button:hover {
-        background-color: #4e1a4e;
-      }
+    button:hover {
+      background-color: #4e1a4e;
+    }
 
-      button:focus {
-        outline: none;
-      }
+    button:focus {
+      outline: none;
+    }
 
-      button:disabled {
-        background-color: #999;
-        cursor: not-allowed;
-      }
+    button:disabled {
+      background-color: #999;
+      cursor: not-allowed;
+    }
 
-      #loadingIndicator {
-        display: none;
-        margin-top: 10px;
-        color: #66246B;
-        font-size: 1.1em;
-        white-space: nowrap;
-      }
+    #loadingIndicator {
+      display: none;
+      margin-top: 10px;
+      color: #66246B;
+      font-size: 1.1em;
+      white-space: nowrap;
+    }
 
-      .loading-text {
-        display: inline-block;
-      }
+    .loading-text {
+      display: inline-block;
+    }
 
-      .loading-text span {
+    .loading-text span {
+      opacity: 0;
+      animation: fadeIn 1.5s infinite;
+    }
+
+    .loading-text span:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .loading-text span:nth-child(2) {
+      animation-delay: 0.1s;
+    }
+
+    .loading-text span:nth-child(3) {
+      animation-delay: 0.2s;
+    }
+
+    .loading-text span:nth-child(4) {
+      animation-delay: 0.3s;
+    }
+
+    .loading-text span:nth-child(5) {
+      animation-delay: 0.4s;
+    }
+
+    .loading-text span:nth-child(6) {
+      animation-delay: 0.5s;
+    }
+
+    .loading-text span:nth-child(7) {
+      animation-delay: 0.6s;
+    }
+
+    .loading-text span:nth-child(8) {
+      animation-delay: 0.7s;
+    }
+
+    .loading-text span:nth-child(9) {
+      animation-delay: 0.8s;
+    }
+
+    .loading-text span:nth-child(10) {
+      animation-delay: 0.9s;
+    }
+
+    @keyframes fadeIn {
+      0%, 100% {
         opacity: 0;
-        animation: fadeIn 1.5s infinite;
       }
-
-      .loading-text span:nth-child(1) {
-        animation-delay: 0s;
+      50% {
+        opacity: 1;
       }
-
-      .loading-text span:nth-child(2) {
-        animation-delay: 0.1s;
-      }
-
-      .loading-text span:nth-child(3) {
-        animation-delay: 0.2s;
-      }
-
-      .loading-text span:nth-child(4) {
-        animation-delay: 0.3s;
-      }
-
-      .loading-text span:nth-child(5) {
-        animation-delay: 0.4s;
-      }
-
-      .loading-text span:nth-child(6) {
-        animation-delay: 0.5s;
-      }
-
-      .loading-text span:nth-child(7) {
-        animation-delay: 0.6s;
-      }
-
-      .loading-text span:nth-child(8) {
-        animation-delay: 0.7s;
-      }
-
-      .loading-text span:nth-child(9) {
-        animation-delay: 0.8s;
-      }
-
-      .loading-text span:nth-child(10) {
-        animation-delay: 0.9s;
-      }
-
-      @keyframes fadeIn {
-        0%, 100% {
-          opacity: 0;
-        }
-        50% {
-          opacity: 1;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Selecione a Data</h1>
-      <form id="dateForm">
-        <label for="dateInput">Digite o mês e o ano no formato MM/AA:</label>
-        <input type="text" id="dateInput" name="dateInput" required placeholder="MM/AA" maxlength="7" oninput="applyMask(this)">
-        <div id="error-message" class="error-message">Formato de mês/ano inválido. Verifique.</div>
-        <button type="button" id="submitButton" onclick="submitDate()">Atualizar</button>
-      </form>
-      <div id="loadingIndicator">
-        <div class="loading-text">
-          <br>
-          <span>P</span><span>r</span><span>o</span><span>c</span><span>e</span><span>s</span><span>s</span><span>a</span><span>n</span><span>d</span><span>o</span>
-        </div>
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Selecione a Data</h1>
+    <form id="dateForm">
+      <label for="dateInput">Digite o mês e o ano no formato MM/AA:</label>
+      <input type="text" id="dateInput" name="dateInput" required placeholder="MM/AA" maxlength="7" oninput="applyMask(this)">
+      <div id="error-message" class="error-message">Formato de mês/ano inválido. Verifique.</div>
+      <button type="button" id="submitButton" onclick="submitDate()">Atualizar</button>
+    </form>
+    <div id="loadingIndicator">
+      <div class="loading-text">
+        <br>
+        <span>P</span><span>r</span><span>o</span><span>c</span><span>e</span><span>s</span><span>s</span><span>a</span><span>n</span><span>do</span>
       </div>
     </div>
-    
-    <script>
-      function applyMask(input) {
-        let value = input.value.replace(/\D/g, '');
+    <div id="statusMessage" style="margin-top: 10px; font-size: 1.1em; color: #66246B;"></div> <!-- Mensagem de status -->
+    <div id="successMessage" style="margin-top: 10px; font-size: 1.1em; color: green; display: none;"></div> <!-- Mensagem de sucesso -->
+  </div>
 
-        if (value.length > 2) {
-          value = value.slice(0, 2) + '/' + value.slice(2, 4);
-        }
+  <script>
+    function applyMask(input) {
+      let value = input.value.replace(/\D/g, '');
 
-        input.value = value;
+      if (value.length > 2) {
+        value = value.slice(0, 2) + '/' + value.slice(2, 4);
       }
 
-      function submitDate() {
-        const dateInput = document.getElementById('dateInput').value;
-        const errorMessage = document.getElementById('error-message');
-        const submitButton = document.getElementById('submitButton');
-        const loadingIndicator = document.getElementById('loadingIndicator');
-        
-        const currentYear = new Date().getFullYear() % 100; // Pega os dois últimos dígitos do ano atual
-        const [month, year] = dateInput.split('/');
-        
-        if (!month || !year || month < "01" || month > "12" || year < "11" || year > currentYear) {
-          errorMessage.style.display = 'block'; // Exibe a mensagem de erro
-        } else {
-          errorMessage.style.display = 'none'; // Oculta a mensagem de erro
-          submitButton.disabled = true;
-          loadingIndicator.style.display = 'inline';
+      input.value = value;
+    }
 
-          google.script.run.withSuccessHandler(function() {
-            google.script.host.close();
-          }).updateSlideWithDate(dateInput);
-        }
+    function submitDate() {
+      const dateInput = document.getElementById('dateInput').value;
+      const errorMessage = document.getElementById('error-message');
+      const submitButton = document.getElementById('submitButton');
+      const loadingIndicator = document.getElementById('loadingIndicator');
+      const statusMessage = document.getElementById('statusMessage');
+      const successMessage = document.getElementById('successMessage');
+
+      const currentYear = new Date().getFullYear() % 100; // Pega os dois últimos dígitos do ano atual
+      const [month, year] = dateInput.split('/');
+
+      if (!month || !year || month < "01" || month > "12" || year < "11" || year > currentYear) {
+        errorMessage.style.display = 'block'; // Exibe a mensagem de erro
+        statusMessage.innerText = ''; // Limpa a mensagem de status
+        successMessage.style.display = 'none'; // Oculta a mensagem de sucesso
+      } else {
+        errorMessage.style.display = 'none'; // Oculta a mensagem de erro
+        submitButton.disabled = true;
+        loadingIndicator.style.display = 'inline';
+        statusMessage.innerText = ''; // Limpa a mensagem de status
+        successMessage.style.display = 'none'; // Oculta a mensagem de sucesso
+
+        google.script.run.withSuccessHandler(function(response) {
+          loadingIndicator.style.display = 'none'; // Esconde o indicador de carregamento
+          submitButton.disabled = false; // Habilita o botão novamente
+          statusMessage.innerText = ''; // Limpa a mensagem de status
+          successMessage.innerText = 'Atualizado com sucesso'; // Exibe a mensagem de sucesso
+          successMessage.style.display = 'block'; // Mostra a mensagem de sucesso
+        }).withFailureHandler(function(error) {
+          loadingIndicator.style.display = 'none'; // Esconde o indicador de carregamento
+          submitButton.disabled = false; // Habilita o botão novamente
+          statusMessage.innerText = 'Erro ao atualizar: ' + error.message; // Exibe a mensagem de erro
+          reportError(error.message); // Chama a função para reportar o erro
+          successMessage.style.display = 'none'; // Oculta a mensagem de sucesso
+        }).updateSlideWithDate(dateInput);
       }
-    </script>
-  </body>
+    }
+
+    function reportError(errorMessage) {
+      const now = new Date();
+      const timestamp = now.toLocaleString(); // Obtém a data e hora atual
+      const functionName = "updateSlideWithDate"; // Nome da função que estava sendo executada
+
+      const emailBody = `Um erro ocorreu ao executar a função "${functionName}".\n\n` +
+                        `Detalhes do erro:\n` +
+                        `Mensagem: ${errorMessage}\n` +
+                        `Data e hora: ${timestamp}\n`;
+
+      // Envie o e-mail usando Google Apps Script
+      google.script.run.sendErrorEmail(emailBody);
+    }
+  </script>
+</body>
 </html>
